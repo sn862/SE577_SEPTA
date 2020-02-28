@@ -1,11 +1,14 @@
 package edu.drexel.TrainDemo;
 
 import edu.drexel.TrainDemo.entities.itinerary.Route;
+import edu.drexel.TrainDemo.entities.itinerary.Stop;
 import edu.drexel.TrainDemo.repositories.itinerary.RouteRepository;
+import edu.drexel.TrainDemo.repositories.itinerary.stop.StopRepository;
 
 import org.slf4j.Logger;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,9 +21,12 @@ public class RouteLoggingRunner implements ApplicationRunner {
 
     private final Logger logger;
     private final RouteRepository repo;
+    private final StopRepository stopRepo;
+    
 
-    public RouteLoggingRunner(Logger logger, RouteRepository repo) {
-        this.logger = logger;
+    public RouteLoggingRunner(Logger logger, RouteRepository repo, StopRepository stopRepository) {
+        this.stopRepo = stopRepository;
+		this.logger = logger;
         this.repo = repo;
     }
 
@@ -46,6 +52,13 @@ public class RouteLoggingRunner implements ApplicationRunner {
         List<Route> routes = repo.findByAgency_Id(agencyId);
         for (Route route : routes) {
             logger.info(route.toString());
+        }
+        
+        String stopId = "abe";
+        logger.info("Attempting to get all stops by the stop id " + stopId + "...");
+        List<Stop> Stops = stopRepo.findByIdContainingIgnoreCase(stopId);
+        for (Stop stop : Stops) {
+            logger.info(stop.toString());
         }
     }
 }
