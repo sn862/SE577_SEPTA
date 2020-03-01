@@ -12,8 +12,8 @@ public class Route {
     private RouteType routeType;
     private String externalUrl;
 
-    @ManyToOne
-    private Agency agency;
+    @Column(name="agency_id")
+    private Long agencyId;
 
     protected Route() {
     }
@@ -34,18 +34,39 @@ public class Route {
         return externalUrl;
     }
 
-    public Agency getAgency() {
-        return agency;
-    }
+	
 
-    @Override
-    public String toString() {
-        return "Route{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", routeType=" + routeType +
-                ", externalUrl='" + externalUrl + '\'' +
-                ", agency=" + agency +
-                '}';
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setRouteType(RouteType routeType) {
+		this.routeType = routeType;
+	}
+
+	public void setExternalUrl(String externalUrl) {
+		this.externalUrl = externalUrl;
+	}
+
+	public Long getAgencyId() {
+		return agencyId;
+	}
+
+	public void setAgencyId(Long agencyId) {
+		this.agencyId = agencyId;
+	}
+
+	@Override
+	public String toString() {
+		return "Route [id=" + id + ", name=" + name + ", routeType=" + routeType + ", externalUrl=" + externalUrl
+				+ ", agencyId=" + agencyId + "]";
+	}
+
+	
+
+  
 }

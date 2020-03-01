@@ -5,38 +5,25 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
-import org.postgresql.util.PGInterval;
-
 @Entity
 @IdClass(StopTimeIdClass.class)
 public class StopTime {
 
 	@Id
 	@Column(name="stop_id")
-	private String stop_id;
+	private String stopId;
 	@Id
 	@Column(name="trip_id")
-	private Long trip_id;
+	private Long tripId;
+	
 	private int stop_sequence;
 	
-	  private String departure_time; private String arrival_time;
-	 
+	private String departure_time; 
+	private String arrival_time;
 	private int pickup_type;
 	private int dropoff_type;
 	
-	public String getStop_id() {
-		return stop_id;
-	}
-	public void setStop_id(String stop_id) {
-		this.stop_id = stop_id;
-	}
 	
-	public Long getTrip_id() {
-		return trip_id;
-	}
-	public void setTrip_id(Long trip_id) {
-		this.trip_id = trip_id;
-	}
 
 	
 	public int getStop_sequence() {
@@ -71,11 +58,24 @@ public class StopTime {
 	public void setDropoff_type(int dropoff_type) {
 		this.dropoff_type = dropoff_type;
 	}
+	public String getStopId() {
+		return stopId;
+	}
+	public void setStopId(String stopId) {
+		this.stopId = stopId;
+	}
+	public Long getTripId() {
+		return tripId;
+	}
+	public void setTripId(Long tripId) {
+		this.tripId = tripId;
+	}
 	@Override
 	public String toString() {
-		return "StopTime [stop_id=" + stop_id + ", trip_id=" + trip_id + ", stop_sequence=" + stop_sequence
+		return "StopTime [stopId=" + stopId + ", tripId=" + tripId + ", stop_sequence=" + stop_sequence
 				+ ", departure_time=" + departure_time + ", arrival_time=" + arrival_time + ", pickup_type="
 				+ pickup_type + ", dropoff_type=" + dropoff_type + "]";
 	}
+	
 		
 }

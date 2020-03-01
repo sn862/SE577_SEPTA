@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import edu.drexel.TrainDemo.entities.itinerary.Calendar;
 
-public interface CalenderRepository extends JpaRepository<Calendar, Long>{
+public interface CalendarRepository extends JpaRepository<Calendar, Long>{
 
 }

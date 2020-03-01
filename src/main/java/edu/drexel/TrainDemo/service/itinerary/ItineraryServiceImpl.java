@@ -28,7 +28,6 @@ public class ItineraryServiceImpl implements ItineraryService {
 		List<Itinerary> itineraries = new ArrayList<Itinerary>();
 		Itinerary itinerary = new Itinerary();
 		
-		
 		itinerary.setAgency(agencyRepository.findById((long) 99));
 		itinerary.setRoute(routeRepository.findById((long) 11317));
 		System.out.println(agencyRepository.findById((long) 99));

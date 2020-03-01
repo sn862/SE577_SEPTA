@@ -1,12 +1,15 @@
 package edu.drexel.TrainDemo.entities.itinerary;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import antlr.collections.List;
 
 @Entity
 public class Calendar {
@@ -94,6 +97,17 @@ public class Calendar {
 				+ ", start_date=" + start_date + ", end_date=" + end_date + "]";
 	}
 	
-	
+	public ArrayList<Boolean> valueListOfDays(){
+		ArrayList<Boolean> list = new ArrayList<Boolean>();
+		list.add(sunday);
+		list.add(monday);
+		list.add(tuesday);
+		list.add(wednesday);
+		list.add(thursday);
+		list.add(friday);
+		list.add(saturday);;
+		
+		return list;
+	}
 
 }

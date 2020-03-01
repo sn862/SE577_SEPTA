@@ -9,4 +9,8 @@ import edu.drexel.TrainDemo.entities.itinerary.StopTimeIdClass;
 
 public interface StopTimeRepository extends JpaRepository<StopTime, StopTimeIdClass> {
 
+
+	List<StopTime> findByStopId(String stopId);
+
+
 }

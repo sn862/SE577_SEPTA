@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
 
-public interface StopRepository extends JpaRepository<Stop, Long> {
+public interface StopRepository extends JpaRepository<Stop, String> {
 
 
 	List<Stop> findByIdContainingIgnoreCase(String id);
