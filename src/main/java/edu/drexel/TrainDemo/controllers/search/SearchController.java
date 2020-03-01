@@ -11,26 +11,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
 import edu.drexel.TrainDemo.entities.itinerary.Trip;
-import edu.drexel.TrainDemo.service.itinerary.stop.StopService;
-import edu.drexel.TrainDemo.service.itinerary.trip.TripService;
+import edu.drexel.TrainDemo.service.search.SearchService;
 
 @RestController
 @RequestMapping("/search")
 public class SearchController {
 
-	@Autowired
-	private StopService stopService;
+	
 	
 	@Autowired
-	private TripService tripService;
+	private SearchService searchService;
 
 	@GetMapping("/getStops/{searchString}")
 	public List<Stop> getStops(@PathVariable("searchString") String searchString) {
-		return stopService.getStops(searchString);
+		return searchService.getStops(searchString);
 	}
 	
 	@GetMapping("/getOneWayTrip/{fromCity}/{toCity}/{date}")
 	public List<Trip> getOneWayTrip(@PathVariable("fromCity") String fromCity, @PathVariable("fromCity") String toCity, @PathVariable("date") Date date) {
-		return tripService.getOneWayTrip(fromCity, toCity, date);
+		return searchService.getOneWayTrip(fromCity, toCity, date);
 	}
 }
