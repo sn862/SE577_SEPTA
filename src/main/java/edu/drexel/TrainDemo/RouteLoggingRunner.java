@@ -5,7 +5,7 @@ import edu.drexel.TrainDemo.entities.itinerary.Route;
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
 import edu.drexel.TrainDemo.entities.itinerary.StopTime;
 import edu.drexel.TrainDemo.entities.itinerary.StopTimeIdClass;
-import edu.drexel.TrainDemo.repositories.itinerary.CalenderRepository;
+import edu.drexel.TrainDemo.repositories.itinerary.CalendarRepository;
 import edu.drexel.TrainDemo.repositories.itinerary.RouteRepository;
 import edu.drexel.TrainDemo.repositories.itinerary.StopRepository;
 import edu.drexel.TrainDemo.repositories.itinerary.StopTimeRepository;
@@ -27,13 +27,13 @@ public class RouteLoggingRunner implements ApplicationRunner {
     private final Logger logger;
     private final RouteRepository repo;
     private final StopRepository stopRepo;
-    private final CalenderRepository calenderRepo;
+    private final CalendarRepository calenderRepo;
     private final StopTimeRepository stopTimeRepo;
     
     
 
     public RouteLoggingRunner(Logger logger, RouteRepository repo, StopRepository stopRepository,
-    		CalenderRepository calenderRepo, StopTimeRepository stopTimeRepo) {
+    		CalendarRepository calenderRepo, StopTimeRepository stopTimeRepo) {
         this.stopTimeRepo = stopTimeRepo;
 		this.calenderRepo = calenderRepo;
 		this.stopRepo = stopRepository;
@@ -60,7 +60,7 @@ public class RouteLoggingRunner implements ApplicationRunner {
 
         long agencyId = 51;
         logger.info("Attempting to get all routes by the agency id " + agencyId + "...");
-        List<Route> routes = repo.findByAgency_Id(agencyId);
+        List<Route> routes = repo.findByAgencyId(agencyId);
         for (Route route : routes) {
             logger.info(route.toString());
         }
@@ -77,6 +77,8 @@ public class RouteLoggingRunner implements ApplicationRunner {
         System.out.println(calenderRepo.findById(calenderId));
         
         System.out.println(stopTimeRepo.findById(new StopTimeIdClass("HUD", 2841296329L)));
+        
+        System.out.println(stopTimeRepo.findByStopId("NFL"));
        
         
     }

@@ -15,11 +15,9 @@ public class Trip {
     private String headsign;
     private RouteType direction;
 
-    @ManyToOne
-    private Route route;
+    private Long route_id;
     
-    @ManyToOne
-    private Calendar calender;
+    private Long calendar_id;
 
 	public Long getId() {
 		return id;
@@ -45,26 +43,27 @@ public class Trip {
 		this.direction = direction;
 	}
 
-	public Route getRoute() {
-		return route;
+	public Long getRoute_id() {
+		return route_id;
 	}
 
-	public void setRoute(Route route) {
-		this.route = route;
+	public void setRoute_id(Long route_id) {
+		this.route_id = route_id;
 	}
 
-	public Calendar getCalender() {
-		return calender;
+	public Long getCalendar_id() {
+		return calendar_id;
 	}
 
-	public void setCalender(Calendar calender) {
-		this.calender = calender;
+	public void setCalendar_id(Long calendar_id) {
+		this.calendar_id = calendar_id;
 	}
 
 	@Override
 	public String toString() {
-		return "Trip [id=" + id + ", headsign=" + headsign + ", direction=" + direction + ", route=" + route
-				+ ", calender=" + calender + "]";
+		return "Trip [id=" + id + ", headsign=" + headsign + ", direction=" + direction + ", route_id=" + route_id
+				+ ", calendar_id=" + calendar_id + "]";
 	}
 
+	
 }

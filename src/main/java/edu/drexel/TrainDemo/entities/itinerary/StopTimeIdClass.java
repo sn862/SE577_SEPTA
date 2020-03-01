@@ -8,50 +8,35 @@ public class StopTimeIdClass implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String stop_id;
-	private long trip_id;
+	private String stopId;
+	private long tripId;
 	
 	public StopTimeIdClass() {
+		// TODO Auto-generated constructor stub
 	}
-	public StopTimeIdClass(String stop_id, long i) {
+	public StopTimeIdClass(String stopId, long tripId) {
 		super();
-		this.stop_id = stop_id;
-		this.trip_id = i;
+		this.stopId = stopId;
+		this.tripId = tripId;
 	}
-	
-	
-	public String getStop_id() {
-		return stop_id;
+	public String getStopId() {
+		return stopId;
 	}
-
-
-	public void setStop_id(String stop_id) {
-		this.stop_id = stop_id;
+	public void setStopId(String stopId) {
+		this.stopId = stopId;
 	}
-
-
-	
-
-
-	public long getTrip_id() {
-		return trip_id;
+	public long getTripId() {
+		return tripId;
 	}
-
-
-	public void setTrip_id(long trip_id) {
-		this.trip_id = trip_id;
+	public void setTripId(long tripId) {
+		this.tripId = tripId;
 	}
-	
-	
-
-	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((stop_id == null) ? 0 : stop_id.hashCode());
-		result = prime * result + (int) (trip_id ^ (trip_id >>> 32));
+		result = prime * result + ((stopId == null) ? 0 : stopId.hashCode());
+		result = prime * result + (int) (tripId ^ (tripId >>> 32));
 		return result;
 	}
 	@Override
@@ -63,19 +48,21 @@ public class StopTimeIdClass implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		StopTimeIdClass other = (StopTimeIdClass) obj;
-		if (stop_id == null) {
-			if (other.stop_id != null)
+		if (stopId == null) {
+			if (other.stopId != null)
 				return false;
-		} else if (!stop_id.equals(other.stop_id))
+		} else if (!stopId.equals(other.stopId))
 			return false;
-		if (trip_id != other.trip_id)
+		if (tripId != other.tripId)
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "StopTimeIdClass [stop_id=" + stop_id + ", trip_id=" + trip_id + "]";
+		return "StopTimeIdClass [stopId=" + stopId + ", tripId=" + tripId + "]";
 	}
+	
+	
 	
 	
 }
