@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
-import edu.drexel.TrainDemo.repositories.itinerary.stop.StopRepository;
+import edu.drexel.TrainDemo.repositories.itinerary.StopRepository;
 
 @Service
 public class StopServiceImpl implements StopService {

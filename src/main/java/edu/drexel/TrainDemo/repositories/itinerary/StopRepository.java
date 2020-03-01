@@ -1,4 +1,4 @@
-package edu.drexel.TrainDemo.repositories.itinerary.stop;
+package edu.drexel.TrainDemo.repositories.itinerary;
 
 import java.util.List;
 

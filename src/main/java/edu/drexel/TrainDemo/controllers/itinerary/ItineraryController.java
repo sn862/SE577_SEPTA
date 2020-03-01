@@ -18,8 +18,6 @@ public class ItineraryController {
 	@Autowired
 	private ItineraryService itineraryService;
 	
-	@Autowired
-	private StopService stopService;
 	
 	
 	@GetMapping("/itinerary")
@@ -29,11 +27,4 @@ public class ItineraryController {
 		return itineraries.get(0).getAgency().toString();
 	}
 	
-	@GetMapping("/getStops/{searchName}")
-	public List<Stop> getStopsbyName(@PathVariable("searchName") String searchName){
-		System.out.println("hello");
-		System.out.println(searchName);
-		System.out.println( stopService.getStops(searchName));
-		return stopService.getStops(searchName);
-	}
 }
