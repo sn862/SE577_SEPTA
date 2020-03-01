@@ -1,9 +1,14 @@
 package edu.drexel.TrainDemo;
 
+import edu.drexel.TrainDemo.entities.itinerary.Calendar;
 import edu.drexel.TrainDemo.entities.itinerary.Route;
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
+import edu.drexel.TrainDemo.entities.itinerary.StopTime;
+import edu.drexel.TrainDemo.entities.itinerary.StopTimeIdClass;
+import edu.drexel.TrainDemo.repositories.itinerary.CalenderRepository;
 import edu.drexel.TrainDemo.repositories.itinerary.RouteRepository;
-import edu.drexel.TrainDemo.repositories.itinerary.stop.StopRepository;
+import edu.drexel.TrainDemo.repositories.itinerary.StopRepository;
+import edu.drexel.TrainDemo.repositories.itinerary.StopTimeRepository;
 
 import org.slf4j.Logger;
 import org.springframework.boot.ApplicationArguments;
@@ -22,10 +27,16 @@ public class RouteLoggingRunner implements ApplicationRunner {
     private final Logger logger;
     private final RouteRepository repo;
     private final StopRepository stopRepo;
+    private final CalenderRepository calenderRepo;
+    private final StopTimeRepository stopTimeRepo;
+    
     
 
-    public RouteLoggingRunner(Logger logger, RouteRepository repo, StopRepository stopRepository) {
-        this.stopRepo = stopRepository;
+    public RouteLoggingRunner(Logger logger, RouteRepository repo, StopRepository stopRepository,
+    		CalenderRepository calenderRepo, StopTimeRepository stopTimeRepo) {
+        this.stopTimeRepo = stopTimeRepo;
+		this.calenderRepo = calenderRepo;
+		this.stopRepo = stopRepository;
 		this.logger = logger;
         this.repo = repo;
     }
@@ -60,5 +71,13 @@ public class RouteLoggingRunner implements ApplicationRunner {
         for (Stop stop : Stops) {
             logger.info(stop.toString());
         }
+        
+        Long calenderId = 1298323L;
+        logger.info("Attempting to get all stops by the calender id " + calenderId + "...");
+        System.out.println(calenderRepo.findById(calenderId));
+        
+        System.out.println(stopTimeRepo.findById(new StopTimeIdClass("HUD", 2841296329L)));
+       
+        
     }
 }

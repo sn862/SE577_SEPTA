@@ -10,4 +10,6 @@ public interface ItineraryService {
 
 	List<Itinerary> getItineraries();
 
+	
+
 }
