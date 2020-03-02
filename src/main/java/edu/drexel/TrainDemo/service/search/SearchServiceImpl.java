@@ -121,9 +121,8 @@ public class SearchServiceImpl implements SearchService {
 		journey.setToStationName(stopRepository.findById(toTime.get().getStopId()).get().getName());
 		journey.setDepartureTime(fromTime.getDeparture_time());
 		journey.setArrivalTime(toTime.get().getArrival_time());
-		Long agency_id= routeRepository.findById(tripRepository.findById(fromTime.getTripId()).get().getRoute_id()).get().getAgencyId();
-		journey.setTrainId(agency_id);
-		journey.setTrainName(agencyRepository.findById(agency_id).get().getName());
+		journey.setRouteId(tripRepository.findById(fromTime.getTripId()).get().getRoute_id());
+		journey.setRouteName(routeRepository.findById(tripRepository.findById(fromTime.getTripId()).get().getRoute_id()).get().getName());
 		try {
 			journey.setDuration(calculateDuration(journey.getArrivalTime(), journey.getDepartureTime()));
 		} catch (ParseException e) {

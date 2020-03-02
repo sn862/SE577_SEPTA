@@ -8,8 +8,8 @@ public class Journey {
 	private String toStationName;
 	private String departureTime;
 	private String arrivalTime;
-	private String TrainName;
-	private Long trainId;
+	private String routeName;
+	private Long routeId;
 	private String duration;
 	
 	public String getFromStaionCode() {
@@ -48,17 +48,18 @@ public class Journey {
 	public void setArrivalTime(String arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
-	public String getTrainName() {
-		return TrainName;
+	
+	public String getRouteName() {
+		return routeName;
 	}
-	public void setTrainName(String trainName) {
-		TrainName = trainName;
+	public void setRouteName(String routeName) {
+		this.routeName = routeName;
 	}
-	public Long getTrainId() {
-		return trainId;
+	public Long getRouteId() {
+		return routeId;
 	}
-	public void setTrainId(Long long1) {
-		this.trainId = long1;
+	public void setRouteId(Long routeId) {
+		this.routeId = routeId;
 	}
 	public String getDuration() {
 		return duration;
@@ -70,7 +71,7 @@ public class Journey {
 	public String toString() {
 		return "Journey [fromStaionCode=" + fromStaionCode + ", fromStationName=" + fromStationName + ", toStationCode="
 				+ toStationCode + ", toStationName=" + toStationName + ", departureTime=" + departureTime
-				+ ", arrivalTime=" + arrivalTime + ", TrainName=" + TrainName + ", trainId=" + trainId + ", duration="
+				+ ", arrivalTime=" + arrivalTime + ", TrainName=" + routeName + ", trainId=" + routeId + ", duration="
 				+ duration + "]";
 	}
 	
