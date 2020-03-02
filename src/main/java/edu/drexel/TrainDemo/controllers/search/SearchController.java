@@ -1,7 +1,6 @@
 package edu.drexel.TrainDemo.controllers.search;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
-import edu.drexel.TrainDemo.entities.itinerary.Trip;
 import edu.drexel.TrainDemo.model.Itinerary.Journey;
 import edu.drexel.TrainDemo.service.search.SearchService;
 
 @RestController
+@RequestMapping("/search/*")
 public class SearchController {
 
 	@Autowired
@@ -26,12 +25,18 @@ public class SearchController {
 		return searchService.getStops(searchString);
 	}
 
+	/*
+	 * Date must be in String format "dd-MM-yyyy"
+	 */
 	@GetMapping("/getOneWayTrip/{fromCity}/{toCity}/{date}")
 	public List<Journey> getOneWayTrip(@PathVariable("fromCity") String fromCity, @PathVariable("toCity") String toCity,
 			@PathVariable("date") String date) {
 		return searchService.getOneWayTrip(fromCity, toCity, date);
 	}
 
+	/*
+	 * Date must be in String format "dd-MM-yyyy"
+	 */
 	@GetMapping("/getRoundTrip/{fromCity}/{toCity}/{departureDate}/{returnDate}")
 	public ArrayList<List<Journey>> getRoundTrip(@PathVariable("fromCity") String fromCity,
 			@PathVariable("toCity") String toCity, @PathVariable("departureDate") String departureDate,
