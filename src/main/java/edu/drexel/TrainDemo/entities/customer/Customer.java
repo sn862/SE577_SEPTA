@@ -12,7 +12,8 @@ public class Customer {
 	private String lastName;
 	private int age;
 	private String email;
-	private Address billingAddressId;
+
+	private Long billingAddressId;
 	private String contactNumber;
 
 	public Long getId() {
@@ -55,11 +56,11 @@ public class Customer {
 		this.email = email;
 	}
 
-	public Address getBillingAddressId() {
+	public Long getBillingAddressId() {
 		return billingAddressId;
 	}
 
-	public void setBillingAddressId(Address billingAddressId) {
+	public void setBillingAddressId(Long billingAddressId) {
 		this.billingAddressId = billingAddressId;
 	}
 
