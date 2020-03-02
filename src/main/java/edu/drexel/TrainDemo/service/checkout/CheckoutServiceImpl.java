@@ -10,6 +10,7 @@ import edu.drexel.TrainDemo.model.checkout.OrderSummary;
 import edu.drexel.TrainDemo.model.checkout.SubmitOrder;
 import edu.drexel.TrainDemo.model.order.Order;
 import edu.drexel.TrainDemo.service.customer.CustomerService;
+import edu.drexel.TrainDemo.service.itinerary.ItineraryService;
 import edu.drexel.TrainDemo.service.order.OrderService;
 import edu.drexel.TrainDemo.service.payment.PaymentService;
 
@@ -24,6 +25,9 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 	@Autowired
 	private PaymentService paymentservice;
+
+	@Autowired
+	private ItineraryService itineraryservice;
 
 	public CheckoutServiceImpl(OrderService orderservice, CustomerService customerservice,
 			PaymentService paymentservice) {
