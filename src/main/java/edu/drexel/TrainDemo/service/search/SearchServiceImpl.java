@@ -80,7 +80,7 @@ public class SearchServiceImpl implements SearchService {
 		for (StopTime fromTime : fromstaions) {
 			
 			Optional<StopTime> toTime = stopTimeRepository.findById(new StopTimeIdClass(toCity, fromTime.getTripId()));
-			if (toTime.isPresent() && (fromTime.getStop_sequence() < toTime.get().getStop_sequence())) {
+			if (toTime.isPresent() && (fromTime.getStopSequence() < toTime.get().getStopSequence())) {
 				journeys.add(constructJourney(fromTime, toTime));
 			} else {
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.drexel.TrainDemo.entities.itinerary.Route;
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
 import edu.drexel.TrainDemo.model.Itinerary.Itinerary;
+import edu.drexel.TrainDemo.model.Itinerary.RouteInfo;
 import edu.drexel.TrainDemo.service.itinerary.ItineraryService;
 
 @RestController
@@ -43,7 +44,7 @@ public class ItineraryController {
 	}
 	
 	@GetMapping("/tripsInfo")
-	public String getTripInfo(){
+	public List<RouteInfo> getTripInfo(){
 		return itineraryService.getTripInfo();
 	}
 	
