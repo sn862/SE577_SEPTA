@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form autocomplete="off">
+				<div class="container">
+					<input type="radio" id="oneway" name="tripType" value="OneWay"
+						onclick="disableReturnDate()" checked> <label for="oneway">OneWay</label>
+					<input type="radio" id="roundTrip" name="tripType"
+						value="RoundTrip" onclick="enableReturnDate()"> <label
+						for="roundTrip">RoundTrip</label> <input type="text" id="fromStn"
+						name="station" size="25" list="huge_from_list"
+						oninput="onFromSationKeyPress(this.value)" placeholder="From City">
+					<datalist id="huge_from_list"></datalist>
+					<input type="text" id="toStn" name="station" size="25"
+						list="huge_to_list" oninput="onToSationKeyPress(this.value)"
+						placeholder="To City">
+					<datalist id="huge_to_list"></datalist>
+					<input type="date" id="departureDate" style="width: 150px"
+						min="setMinDate()" name="date"> <input type="date"
+						id="arrivalDate" style="width: 150px" min="setMinDateForReturn()"
+						name="date"> 
+						
+					<a href="/search/display.html"><input type="button" id="searchButton"
+						name="button" value="Search"></a>
+				</div>
+			</form>
+
+</body>
+</html>
