@@ -60,7 +60,7 @@
 			</div>
 			<br>
 			<br>
-			<form autocomplete="off" method = "GET" action="/search/display.html">
+			<form autocomplete="off">
 				<div class="container">
 					<input type="radio" id="oneway" name="tripType" value="OneWay"
 						onclick="disableReturnDate()" checked> <label for="oneway">OneWay</label>
@@ -79,8 +79,8 @@
 						id="arrivalDate" style="width: 150px" min="setMinDateForReturn()"
 						name="date"> 
 						
-					<input type="button" id="searchButton"
-						name="button" value="Search">
+					<a href="/search/display.html"><input type="button" id="searchButton"
+						name="button" value="Search"></a>
 				</div>
 			</form>
 		</div>
