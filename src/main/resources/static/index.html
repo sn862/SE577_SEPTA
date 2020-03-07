@@ -9,9 +9,14 @@
 <meta name="viewport" content="width=device-width" />
 <base href="/" />
 
-<script src="<c:url value="/resources/core/jquery.1.10.2.min.js" />"></script>
-<script src="<c:url value="/resources/core/jquery.autocomplete.min.js" />"></script>
-<link href="<c:url value="/resources/core/main.css" />" rel="stylesheet">
+<script src="<c:url value=" /resources/core/jquery.1.10.2.min.js" />
+">
+</script>
+<script src="<c:url value=" /resources/core/jquery.autocomplete.min.js" />
+">
+</script>
+<link href="<c:url value=" /resources/core/main.css" />
+" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css" />
 <link rel="stylesheet"
@@ -62,23 +67,33 @@
 				<a role="button" class="btn btn-primary btn-lg" href="#">Learn
 					More</a>
 			</div>
-			<br><br>
-			<form autocomplete="off" action="/action_page.php">
-			<div  class="container">
-				<input type="radio" id="oneway" name="tripType" value="OneWay" onclick="disableReturnDate()"
-					checked> <label for="oneway">OneWay</label> 
-				<input
-					type="radio" id="roundTrip" name="tripType" value="RoundTrip" onclick="enableReturnDate()">
-					 <label for="roundTrip">RoundTrip</label>
-				<input type="text" id="fromStn" name="station" oninput="oneverykey(this.value)" placeholder="From City" >
-				<input type="text" id="toStn" name="station" placeholder="To City">
-				<input type="date" id="departureDate" name="date"> <input
-					type="date" id="arrivalDate" name="date"> <input
-					type="button" id="searchButton" name="button" value="Search">
-			</div>
+			<br>
+			<br>
+			<form autocomplete="off" method = "GET" action="/search/display.html">
+				<div class="container">
+					<input type="radio" id="oneway" name="tripType" value="OneWay"
+						onclick="disableReturnDate()" checked> <label for="oneway">OneWay</label>
+					<input type="radio" id="roundTrip" name="tripType"
+						value="RoundTrip" onclick="enableReturnDate()"> <label
+						for="roundTrip">RoundTrip</label> <input type="text" id="fromStn"
+						name="station" size="25" list="huge_from_list"
+						oninput="onFromSationKeyPress(this.value)" placeholder="From City">
+					<datalist id="huge_from_list"></datalist>
+					<input type="text" id="toStn" name="station" size="25"
+						list="huge_to_list" oninput="onToSationKeyPress(this.value)"
+						placeholder="To City">
+					<datalist id="huge_to_list"></datalist>
+					<input type="date" id="departureDate" style="width: 150px"
+						min="setMinDate()" name="date"> <input type="date"
+						id="arrivalDate" style="width: 150px" min="setMinDateForReturn()"
+						name="date"> 
+						
+					<input type="button" id="searchButton"
+						name="button" value="Search">
+				</div>
 			</form>
 		</div>
-		
+
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
@@ -151,7 +166,11 @@
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.js"></script>
 	<script type="text/javascript" src="/js/script.js"></script>
-	<script src="<c:url value="/resources/core/jquery.1.10.2.min.js" />"></script>
-<script src="<c:url value="/resources/core/jquery.autocomplete.min.js" />"></script>
+	<script src="<c:url value=" /resources/core/jquery.1.10.2.min.js" />
+	">
+	</script>
+	<script src="<c:url value=" /resources/core/jquery.autocomplete.min.js" />
+	">
+	</script>
 </body>
 </html>

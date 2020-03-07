@@ -30,37 +30,84 @@ var logout = function() {
 	})
 	return true;
 }
+
+
+
 function onload() {
+	document.getElementById("departureDate").valueAsDate = new Date();
 	var x = document.getElementById("oneway").value;
 	if (x == "OneWay") {
-		document.getElementById("arrivalDate").disabled = true;
+		document.getElementById("arrivalDate").style.display = 'none';
 	}
 }
 
 function enableReturnDate() {
-	document.getElementById("arrivalDate").disabled = false;
+	document.getElementById("arrivalDate").style.display = 'block';
+	document.getElementById("arrivalDate").valueAsDate = new Date();
 }
 
 function disableReturnDate() {
-	document.getElementById("arrivalDate").disabled = true;
+	document.getElementById("arrivalDate").style.display = 'none';
 }
 
+function setMinDate(){
+	document.getElementById("departureDate").valueAsDate = new Date();
+	
+}
+function setMinDateForReturn(){
+	document.getElementById("arrivalDate").valueAsDate = document.getElementById("departureDate").val;
+}
 
-function oneverykey(val) {
-	//alert(val);
+function onFromSationKeyPress(val) {
+	if(val.length >1){
 	var result=[];
-	var url1 = "http://localhost:8080/search/getStops/"+val;
+	
+	var url1 = "/search/getStops/"+val;
 	 $.ajax({
 	        url: url1
 	    }).then(function(data) {
 	    	 var myArr = JSON.parse(data);
-	    	 for (i = 0; i < myArr.length; i++) {
-	    		 var x= myArr[i].name+" ("+myArr[i].id+")";
-	    		 result.push(x);
-	    		}
-	    	alert(result); 
+	    	
+	    	var huge_list = document.getElementById('huge_from_list');
+	    	huge_list.innerHTML = "";
+	    	
+	    	 myArr.forEach(function(item) {
+                 // Create a new <option> element.
+                 var option = document.createElement('option');
+                 option.value = item.name+"("+item.id+")";
+
+                 // attach the option to the datalist element
+                 huge_list.appendChild(option);
+             });
 	    });
-	 
+}
+
+}
+
+function onToSationKeyPress(val) {
+	if(val.length >1){
+	var result=[];
+	
+	var url1 = "/search/getStops/"+val;
+	 $.ajax({
+	        url: url1
+	    }).then(function(data) {
+	    	 var myArr = JSON.parse(data);
+	    	
+	    	var huge_list = document.getElementById('huge_to_list');
+	    	huge_list.innerHTML = "";
+	    	
+	    	 myArr.forEach(function(item) {
+                 // Create a new <option> element.
+                 var option = document.createElement('option');
+                 option.value = item.name+"("+item.id+")";
+
+                 // attach the option to the datalist element
+                 huge_list.appendChild(option);
+             });
+	    });
+}
+
 }
 
 
