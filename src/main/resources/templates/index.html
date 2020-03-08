@@ -58,32 +58,47 @@
 				<a role="button" class="btn btn-primary btn-lg" href="#">Learn
 					More</a>
 			</div>
-			<br>
-			<br>
-			<form autocomplete="off">
-				<div class="container">
-					<input type="radio" id="oneway" name="tripType" value="OneWay"
-						onclick="disableReturnDate()" checked> <label for="oneway">OneWay</label>
-					<input type="radio" id="roundTrip" name="tripType"
-						value="RoundTrip" onclick="enableReturnDate()"> <label
-						for="roundTrip">RoundTrip</label> <input type="text" id="fromStn"
-						name="station" size="25" list="huge_from_list"
+			<br> <br>
+			<div class="container">
+				<form autocomplete="off" method="POST" id="myForm" action="#" th:action="@{/search/display.html}" th:object="${search}"
+					 >
+
+					 <input checked type="radio" id="oneway" name="tripType" th:field="*{tripType}" th:value="OneWay"
+						 onclick="disableReturnDate()"> <label
+						for="oneway">OneWay</label>
+
+					<input type="radio" id="roundTrip" th:field="*{tripType}" th:value="RoundTrip"
+						name="tripType" 
+						onclick="enableReturnDate()"> <label for="roundTrip">RoundTrip</label>
+						
+						
+					<input type="text" id="fromStn"  name="station" th:field="*{fromStn}"
+						size="25" list="huge_from_list"
 						oninput="onFromSationKeyPress(this.value)" placeholder="From City">
 					<datalist id="huge_from_list"></datalist>
-					<input type="text" id="toStn" name="station" size="25"
+					
+					<input type="text" id="toStn" name="station" size="25"  th:field="*{toStn}"
 						list="huge_to_list" oninput="onToSationKeyPress(this.value)"
 						placeholder="To City">
 					<datalist id="huge_to_list"></datalist>
-					<input type="date" id="departureDate" style="width: 150px"
-						min="setMinDate()" name="date"> <input type="date"
-						id="arrivalDate" style="width: 150px" min="setMinDateForReturn()"
-						name="date"> 
+					
+					
+					<input type="date" id="departureDate" 
+						style="width: 150px" min="setMinDate()" th:field="*{departureDate}" name="date"> 
 						
-					<a href="/search/display.html"><input type="button" id="searchButton"
-						name="button" value="Search"></a>
-				</div>
-			</form>
+					<input	type="date"  id="arrivalDate" th:field="*{arrivalDate}"
+						style="width: 150px" min="setMinDateForReturn()" name="date">
+						
+						
+					<input type="number" id="tentacles" name="tentacles" th:field="*{numberOfTickets}"
+						 value="1" min="1" max="10">
+						
+						<button type="submit" value="Submit">Search</button>
+
+				</form>
+			</div>
 		</div>
+		
 
 		<div class="container">
 			<div class="row">
@@ -157,6 +172,6 @@
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.js"></script>
 	<script type="text/javascript" src="/js/script.js"></script>
-	
+
 </body>
 </html>
