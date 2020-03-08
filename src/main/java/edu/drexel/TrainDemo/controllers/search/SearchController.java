@@ -65,12 +65,18 @@ public class SearchController {
 	}
 	
 	@PostMapping("/search/display.html")
-	public String displayItineraries(SearchModel model) {
-		System.out.println(model.getFromStn() + model.getToStn());
-		System.out.println(model.getArrivalDate() + model.getDepartureDate());
-		System.out.println(model.getTripType());
-		System.out.println(model.getNumberOfTickets());
-		System.out.println("search");
+	public String displayItineraries(SearchModel model, Model modelrequest) {
+		String fromStation= model.getFromStn().substring(model.getFromStn().length()-4, model.getFromStn().length()-1);
+		String toStation= model.getToStn().substring(model.getToStn().length()-4, model.getToStn().length()-1);
+		System.out.println("heeee");
+		modelrequest.addAttribute("request", model);
+		if(model.getTripType().equals("OneWay")){
+			modelrequest.addAttribute("forward", getOneWayTrip(fromStation, toStation, model.getDepartureDate()));
+		}else {
+			modelrequest.addAttribute("forward", getOneWayTrip(fromStation, toStation, model.getDepartureDate()));
+			modelrequest.addAttribute("return", getOneWayTrip(toStation, fromStation, model.getArrivalDate()));
+		}
+		System.out.println(getOneWayTrip(fromStation, toStation, model.getDepartureDate()));
 		return "display";
 		
 	}	
