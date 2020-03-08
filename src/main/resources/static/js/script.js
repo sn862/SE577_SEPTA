@@ -35,10 +35,9 @@ var logout = function() {
 
 function onload() {
 	document.getElementById("departureDate").valueAsDate = new Date();
-	var x = document.getElementById("oneway").value;
-	if (x == "OneWay") {
+	document.getElementById("oneway").checked;
 		document.getElementById("arrivalDate").style.display = 'none';
-	}
+	
 }
 
 function enableReturnDate() {
