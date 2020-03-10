@@ -144,9 +144,9 @@ public class SearchServiceImpl implements SearchService {
 		Date date1 = format.parse(departureTime);
 		Date date2 = format.parse(arrivalTime);
 		
-		Date date = new Date(date2.getTime() - date1.getTime());
+		Date date = new Date(date1.getTime() - date2.getTime());
 		SimpleDateFormat formatter= new SimpleDateFormat("HH:mm:ss");
-		//formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+		formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 		return formatter.format(date );
 	}
 

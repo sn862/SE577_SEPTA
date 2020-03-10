@@ -1,10 +1,194 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Train Ticket</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width" />
+<base href="/" />
+
+
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css" />
+<link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-this is return page
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<a class="navbar-brand" href="#">Train Ticket</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarsExampleDefault"
+			aria-controls="navbarsExampleDefault" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+
+
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">Home
+						<span class="sr-only">(current)</span>
+				</a></li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="ml-auto nav-item authenticated dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="profile-name"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+					<div class="dropdown-menu" aria-labelledby="profile-name">
+						<a class="dropdown-item" href="#" onclick="logout()">Sign Out</a>
+					</div></li>
+				<li class="ml-auto nav-item unauthenticated"><a
+					class="nav-link" href="#" data-toggle="modal"
+					data-target="#signInModal">Sign In</a></li>
+			</ul>
+		</div>
+	</nav>
+	<form action="#" th:id="mainForm" th:action="@{/search/returndisplay.html}" method ="POST" th:object="${display}">
+	<main role="main">
+		<div class="jumbotron">
+			<div class="container">
+				<form autocomplete="off" method="POST" id="myForm" action="#"
+					th:action="@{/search/display.html}" th:object="${display.searchModel}">
+
+
+
+					<input checked type="radio" id="oneway" name="tripType"
+						th:field="*{tripType}" th:value="OneWay"
+						onclick="disableReturnDate()"> <label for="oneway">OneWay</label>
+
+
+
+					<input type="radio" id="roundTrip" th:field="*{tripType}"
+						th:value="RoundTrip" name="tripType" onclick="enableReturnDate()">
+					<label for="roundTrip">RoundTrip</label> <input type="text"
+						id="fromStn" name="station" th:field="*{fromStn}" size="25"
+						list="huge_from_list" oninput="onFromSationKeyPress(this.value)"
+						placeholder="From City">
+					<datalist id="huge_from_list"></datalist>
+
+
+
+					<input type="text" id="toStn" name="station" size="25"
+						th:field="*{toStn}" list="huge_to_list"
+						oninput="onToSationKeyPress(this.value)" placeholder="To City">
+					<datalist id="huge_to_list"></datalist>
+
+
+
+
+					<input type="date" id="departureDate" style="width: 150px"
+						min="setMinDate()" th:field="*{departureDate}" name="date">
+
+
+
+					<input type="date" id="arrivalDate" th:field="*{arrivalDate}"
+						style="width: 150px" min="setMinDateForReturn()" name="date">
+
+
+
+
+					<input type="number" id="numberOfTickets" name="tentacles"
+						th:field="*{numberOfTickets}" value="1" min="1" max="10">
+					
+
+
+					<button type="submit" value="Submit">Search</button>
+
+
+
+				</form>
+			</div>
+		</div>
+	<div  class="container">
+	<tr>
+	<h1>Select Trip                           Cart total <span id= id= "price" th:field="*{searchModel.price}"></span></h1> 
+	
+	<input type="hidden" id="tripId" th:field="*{searchModel.tripId}">
+	</tr>
+	</div>	
+	 <div class="container">
+			<table id="trainTest1" border="1" width="700">
+				<tr>
+					<th>Saver</th>
+					<th>Value</th>
+					<th>Flexible</th>
+					<th>Business</th>
+					<th>Premium</th>
+				</tr>
+			</table>
+		</div>
+		<div class="container">
+
+				
+			<th:block th:each="journey, stat : ${display.returnJournyList}">
+				<br>
+				<br>	
+				
+				<form action="#" th:id="'form'+${stat.index}" th:action="@{/search/returndisplay.html}">
+				
+				
+				<input type="hidden" th:field="*{searchModel.departureDate}">
+				<input type="hidden" th:field="*{searchModel.arrivalDate}">
+				<input type="hidden" th:field="*{searchModel.numberOfTickets}">
+				<input type="hidden" th:field="*{searchModel.tripType}">
+				
+				<table>
+				<tr>
+					<td><span th:text="${'TOTAL TRAVEL TIME: ' + journey.duration}"></span>
+					<td>
+					<td>
+					<td>
+					<td>
+					<button type="submit" form="mainForm" onclick="selectedTrip(this.value)" th:value="${stat.index}" >Search</button>
+				
+				<tr>
+					<td><input type="radio" th:id="'saver'+${stat.index}" th:field="*{returnJournyList[__${stat.index}__].tripType}"
+								th:value="${journey.saverPrice}" /><span th:text="${journey.saverPrice}"></span>
+					<td><input type="radio" th:id="'value'+${stat.index}" th:field="*{returnJournyList[__${stat.index}__].tripType}"
+								th:value="${journey.valuePrice}" /><span th:text="${journey.valuePrice}"></span>
+					<td><input type="radio" th:id="'flexible'+${stat.index}" th:field="*{returnJournyList[__${stat.index}__].tripType}"
+								th:value="${journey.flexiblePrice}" /><span th:text="${journey.flexiblePrice}"></span>
+					<td><input type="radio" th:id="'business'+${stat.index}" th:field="*{returnJournyList[__${stat.index}__].tripType}"
+								th:value="${journey.businessPrice}" /><span th:text="${journey.businessPrice}"></span>
+					<td><input type="radio" th:id="'premium'+${stat.index}" th:field="*{returnJournyList[__${stat.index}__].tripType}"
+								th:value="${journey.premiumPrice}" /><span th:text="${journey.premiumPrice}"></span>
+								
+					<input type="hidden" th:id="'tripId_'+${stat.index}"  th:value="${journey.tripId}">
+					<!-- <input type="text" th:id="'tripId_'+${stat.index}" th:text="${journey.tripId}"> -->
+				<tr>
+					<td><a href=""	th:text="${journey.routeId +' ' + journey.routeName}"></a>
+								
+					<td>
+					<td><span style="color:blue;font-size:28px;" th:text="${journey.fromStaionCode +' ('+ journey.departureTime +')'}"></span>
+					<td><span style="color:blue;font-size:28px;" th:text="${journey.toStationCode+' ('+ journey.arrivalTime+ ')'}"></span>
+					<td><span th:text="${journey.duration}"></span>
+					
+				<tr>
+					<td><a href="" th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
+					<td><a href="" th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
+					<td><a href="" th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
+					<td><a href="" th:text="${display.searchModel.numberOfTickets +' Business Coach seats '}"></a></td>
+					<td><a href="" th:text="${display.searchModel.numberOfTickets +' Premium Coach seats '}"></a></td>			
+				</table>
+				
+								
+				</form>		
+			</th:block>
+		</div>
+	</main>
+	</form>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.js"></script>
+	<script type="text/javascript" src="/js/display.js"></script>
 </body>
 </html>
