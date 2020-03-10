@@ -31,8 +31,32 @@ var logout = function() {
 	return true;
 }
 
-
-
+function selectedTrip(val){
+	
+	 document.getElementById("tripId").value = document.getElementById("tripId_"+val).value;
+	 
+	 document.getElementById("price").value = validatePriceCheck(val);
+	
+	
+	
+}
+function validatePriceCheck(val){
+	if(document.getElementById("saver"+val).checked == true){
+		
+		return document.getElementById("saver"+val).value;
+	}else if (document.getElementById("value"+val).checked == true){
+		return document.getElementById("value"+val).value;
+	}else if (document.getElementById("flexible"+val).checked == true) {
+		return document.getElementById("flexible"+val).value;
+	}else if(document.getElementById("business"+val).checked == true){
+		return document.getElementById("business"+val).value;
+	}else if(document.getElementById("premium"+val).checked == true){
+		return document.getElementById("premium"+val).value;
+	}else{
+		alert("select price");
+		return false;
+	}
+}
 function onload() {
 	document.getElementById("departureDate").valueAsDate = new Date();
 	document.getElementById("oneway").checked;

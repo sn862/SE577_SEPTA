@@ -56,7 +56,6 @@ function setMinDate(){
 function setMinDateForReturn(){
 	document.getElementById("arrivalDate").valueAsDate = document.getElementById("departureDate").val;
 }
-
 function onFromSationKeyPress(val) {
 	if(val.length >1){
 	var result=[];

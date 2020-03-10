@@ -1,5 +1,8 @@
 package edu.drexel.TrainDemo.model.Itinerary;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Journey {
 
 	private String fromStaionCode;
@@ -11,6 +14,16 @@ public class Journey {
 	private String routeName;
 	private Long routeId;
 	private String duration;
+	private String saverPrice;
+	private String valuePrice;
+	private String flexiblePrice;
+	private String businessPrice;
+	private String premiumPrice;
+	private String tripType;
+	private String tripId;
+	
+	
+	
 	
 	public String getFromStaionCode() {
 		return fromStaionCode;
@@ -67,12 +80,56 @@ public class Journey {
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
+	
+	
+	public String getSaverPrice() {
+		return saverPrice;
+	}
+	public void setSaverPrice(String saverPrice) {
+		this.saverPrice = saverPrice;
+	}
+	public String getValuePrice() {
+		return valuePrice;
+	}
+	public void setValuePrice(String valuePrice) {
+		this.valuePrice = valuePrice;
+	}
+	public String getFlexiblePrice() {
+		return flexiblePrice;
+	}
+	public void setFlexiblePrice(String flexiblePrice) {
+		this.flexiblePrice = flexiblePrice;
+	}
+	public String getBusinessPrice() {
+		return businessPrice;
+	}
+	public void setBusinessPrice(String businessPrice) {
+		this.businessPrice = businessPrice;
+	}
+	public String getPremiumPrice() {
+		return premiumPrice;
+	}
+	public void setPremiumPrice(String premiumPrice) {
+		this.premiumPrice = premiumPrice;
+	}
 	@Override
 	public String toString() {
 		return "Journey [fromStaionCode=" + fromStaionCode + ", fromStationName=" + fromStationName + ", toStationCode="
 				+ toStationCode + ", toStationName=" + toStationName + ", departureTime=" + departureTime
 				+ ", arrivalTime=" + arrivalTime + ", TrainName=" + routeName + ", trainId=" + routeId + ", duration="
 				+ duration + "]";
+	}
+	public String getTripType() {
+		return tripType;
+	}
+	public void setTripType(String tripType) {
+		this.tripType = tripType;
+	}
+	public String getTripId() {
+		return tripId;
+	}
+	public void setTripId(String tripId) {
+		this.tripId = tripId;
 	}
 	
 	

@@ -10,6 +10,23 @@ public class SearchModel {
 	private String arrivalDate;
 	private int numberOfTickets;
 	private String tripType;
+	
+	private String tripId;
+	private String price;
+	
+	
+	public String getTripId() {
+		return tripId;
+	}
+	public void setTripId(String tripId) {
+		this.tripId = tripId;
+	}
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
 	public String getFromStn() {
 		return fromStn;
 	}

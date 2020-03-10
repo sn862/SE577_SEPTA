@@ -123,8 +123,14 @@ public class SearchServiceImpl implements SearchService {
 		journey.setArrivalTime(toTime.get().getArrival_time());
 		journey.setRouteId(tripRepository.findById(fromTime.getTripId()).get().getRoute_id());
 		journey.setRouteName(routeRepository.findById(tripRepository.findById(fromTime.getTripId()).get().getRoute_id()).get().getName());
+		journey.setSaverPrice("$66.0");
+		journey.setValuePrice("$120.0");
+		journey.setFlexiblePrice("$180.0");
+		journey.setBusinessPrice("$230.0");
+		journey.setPremiumPrice("$299.0");
+		journey.setTripId(fromTime.getTripId().toString());
 		try {
-			journey.setDuration(calculateDuration(journey.getArrivalTime(), journey.getDepartureTime()));
+			journey.setDuration(calculateDuration(fromTime.getDeparture_time(),toTime.get().getArrival_time()));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -140,7 +146,7 @@ public class SearchServiceImpl implements SearchService {
 		
 		Date date = new Date(date2.getTime() - date1.getTime());
 		SimpleDateFormat formatter= new SimpleDateFormat("HH:mm:ss");
-		formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+		//formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 		return formatter.format(date );
 	}
 
