@@ -71,6 +71,7 @@ public class SearchController {
 	
 	@PostMapping("/search/display.html")
 	public String displayItineraries(SearchModel model, Model modelrequest) {
+
 		String fromStation= model.getFromStn().substring(model.getFromStn().length()-4, model.getFromStn().length()-1);
 		String toStation= model.getToStn().substring(model.getToStn().length()-4, model.getToStn().length()-1);
 		Display display= new Display();
@@ -78,6 +79,7 @@ public class SearchController {
 		display.setJournyList(getOneWayTrip(fromStation, toStation, model.getDepartureDate()));
 		
 		modelrequest.addAttribute("display", display);
+		modelrequest.addAttribute("searchModel", model);
 		return "display";
 		
 	}	
@@ -94,15 +96,25 @@ public class SearchController {
 	}
 
 	private String invokeReturnTripPage(Display form) {
+		System.out.println(form.getSearchModel());
 		String toStation= form.getSearchModel().getFromStn().substring(form.getSearchModel().getFromStn().length()-4, form.getSearchModel().getFromStn().length()-1);
 		String fromStation= form.getSearchModel().getToStn().substring(form.getSearchModel().getToStn().length()-4, form.getSearchModel().getToStn().length()-1);
 		form.setReturnJournyList(getOneWayTrip(fromStation, toStation, form.getSearchModel().getArrivalDate()));
+		ModelAndView model = new ModelAndView();
+		Display returnDisplay = new Display();
+		returnDisplay.setSearchModel(form.getSearchModel());
+		returnDisplay.setReturnJournyList(getOneWayTrip(fromStation, toStation, form.getSearchModel().getArrivalDate()));
+		SearchModel searchModel = new SearchModel();
+		searchModel= form.getSearchModel();
+		System.out.println(searchModel);
+		model.addObject("searchModel", searchModel);
+		model.addObject("display", returnDisplay);
 		return "returndisplay";
 	}
 
 	private String invokeCustomerpage(Display form) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "customer";
 	}
 
 	private boolean isOneWayTrip(Display form) {
