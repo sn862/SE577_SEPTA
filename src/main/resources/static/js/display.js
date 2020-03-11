@@ -40,9 +40,15 @@ function selectedTrip(val){
 	
 	
 }
+
+function selectedreturnTrip(val){
+ document.getElementById("returnTripId").value = document.getElementById("tripId_"+val).value;
+	 
+	 document.getElementById("returnPrice").value = validatePriceCheck(val);
+}
 function validatePriceCheck(val){
 	if(document.getElementById("saver"+val).checked == true){
-		
+		alert(document.getElementById("saver"+val).value)
 		return document.getElementById("saver"+val).value;
 	}else if (document.getElementById("value"+val).checked == true){
 		return document.getElementById("value"+val).value;

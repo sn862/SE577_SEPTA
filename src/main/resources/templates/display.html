@@ -49,139 +49,166 @@
 			</ul>
 		</div>
 	</nav>
-	<form action="#" th:id="mainForm" th:action="@{/search/returndisplay.html}" method ="POST" th:object="${display}">
-	<main role="main">
-		<div class="jumbotron">
-			<div class="container">
-				<form autocomplete="off" method="POST" id="myForm" action="#"
-					th:action="@{/search/display.html}" th:object="${display.searchModel}">
-
-
-
-					<input checked type="radio" id="oneway" name="tripType"
-						th:field="*{tripType}" th:value="OneWay"
-						onclick="disableReturnDate()"> <label for="oneway">OneWay</label>
-
-
-
-					<input type="radio" id="roundTrip" th:field="*{tripType}"
-						th:value="RoundTrip" name="tripType" onclick="enableReturnDate()">
-					<label for="roundTrip">RoundTrip</label> <input type="text"
-						id="fromStn" name="station" th:field="*{fromStn}" size="25"
-						list="huge_from_list" oninput="onFromSationKeyPress(this.value)"
-						placeholder="From City">
-					<datalist id="huge_from_list"></datalist>
-
-
-
-					<input type="text" id="toStn" name="station" size="25"
-						th:field="*{toStn}" list="huge_to_list"
-						oninput="onToSationKeyPress(this.value)" placeholder="To City">
-					<datalist id="huge_to_list"></datalist>
-
-
-
-
-					<input type="date" id="departureDate" style="width: 150px"
-						min="setMinDate()" th:field="*{departureDate}" name="date">
-
-
-
-					<input type="date" id="arrivalDate" th:field="*{arrivalDate}"
-						style="width: 150px" min="setMinDateForReturn()" name="date">
-
-
-
-
-					<input type="number" id="numberOfTickets" name="tentacles"
-						th:field="*{numberOfTickets}" value="1" min="1" max="10">
-					
-
-
-					<button type="submit" value="Submit">Search</button>
-
-
-
-				</form>
-			</div>
-		</div>
-	<div  class="container">
-	<tr>
-	<h1>Select Trip                           Cart total <span id= id= "price" th:field="*{searchModel.price}"></span></h1> 
 	
-	<input type="hidden" id="tripId" th:field="*{searchModel.tripId}">
-	</tr>
-	</div>	
-	 <div class="container">
-			<table id="trainTest1" border="1" width="700">
-				<tr>
-					<th>Saver</th>
-					<th>Value</th>
-					<th>Flexible</th>
-					<th>Business</th>
-					<th>Premium</th>
-				</tr>
-			</table>
-		</div>
-		<div class="container">
+		<main role="main">
+			<div class="jumbotron">
+				<div class="container">
+					<form autocomplete="off" method="POST" id="myForm" action="#"
+						th:action="@{/search/display.html}"
+						th:object="${searchModel}">
 
-				
-			<th:block th:each="journey, stat : ${display.journyList}">
-				<br>
-				<br>	
-				
-				<form action="#" th:id="'form'+${stat.index}" th:action="@{/search/returndisplay.html}">
-				
-				
-				<input type="hidden" th:field="*{searchModel.departureDate}">
-				<input type="hidden" th:field="*{searchModel.arrivalDate}">
-				<input type="hidden" th:field="*{searchModel.numberOfTickets}">
-				<input type="hidden" th:field="*{searchModel.tripType}">
-				
-				<table>
-				<tr>
-					<td><span th:text="${'TOTAL TRAVEL TIME: ' + journey.duration}"></span>
-					<td>
-					<td>
-					<td>
-					<td>
-					<button type="submit" form="mainForm" onclick="selectedTrip(this.value)" th:value="${stat.index}" >Search</button>
-				
-				<tr>
-					<td><input type="radio" th:id="'saver'+${stat.index}" th:field="*{journyList[__${stat.index}__].tripType}"
-								th:value="${journey.saverPrice}" /><span th:text="${journey.saverPrice}"></span>
-					<td><input type="radio" th:id="'value'+${stat.index}" th:field="*{journyList[__${stat.index}__].tripType}"
-								th:value="${journey.valuePrice}" /><span th:text="${journey.valuePrice}"></span>
-					<td><input type="radio" th:id="'flexible'+${stat.index}" th:field="*{journyList[__${stat.index}__].tripType}"
-								th:value="${journey.flexiblePrice}" /><span th:text="${journey.flexiblePrice}"></span>
-					<td><input type="radio" th:id="'business'+${stat.index}" th:field="*{journyList[__${stat.index}__].tripType}"
-								th:value="${journey.businessPrice}" /><span th:text="${journey.businessPrice}"></span>
-					<td><input type="radio" th:id="'premium'+${stat.index}" th:field="*{journyList[__${stat.index}__].tripType}"
-								th:value="${journey.premiumPrice}" /><span th:text="${journey.premiumPrice}"></span>
-								
-					<input type="hidden" th:id="'tripId_'+${stat.index}"  th:value="${journey.tripId}">
-					<!-- <input type="text" th:id="'tripId_'+${stat.index}" th:text="${journey.tripId}"> -->
-				<tr>
-					<td><a href=""	th:text="${journey.routeId +' ' + journey.routeName}"></a>
-								
-					<td>
-					<td><span style="color:blue;font-size:28px;" th:text="${journey.fromStaionCode +' ('+ journey.departureTime +')'}"></span>
-					<td><span style="color:blue;font-size:28px;" th:text="${journey.toStationCode+' ('+ journey.arrivalTime+ ')'}"></span>
-					<td><span th:text="${journey.duration}"></span>
-					
-				<tr>
-					<td><a href="" th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
-					<td><a href="" th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
-					<td><a href="" th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
-					<td><a href="" th:text="${display.searchModel.numberOfTickets +' Business Coach seats '}"></a></td>
-					<td><a href="" th:text="${display.searchModel.numberOfTickets +' Premium Coach seats '}"></a></td>			
+
+
+						<input checked type="radio" id="oneway" name="tripType"
+							th:field="*{tripType}" th:value="OneWay"
+							onclick="disableReturnDate()"> <label for="oneway">OneWay</label>
+
+
+
+						<input type="radio" id="roundTrip" th:field="*{tripType}"
+							th:value="RoundTrip" name="tripType" onclick="enableReturnDate()">
+						<label for="roundTrip">RoundTrip</label> <input type="text"
+							id="fromStn" name="station" th:field="*{fromStn}" size="25"
+							list="huge_from_list" oninput="onFromSationKeyPress(this.value)"
+							placeholder="From City">
+						<datalist id="huge_from_list"></datalist>
+
+
+
+						<input type="text" id="toStn" name="station" size="25"
+							th:field="*{toStn}" list="huge_to_list"
+							oninput="onToSationKeyPress(this.value)" placeholder="To City">
+						<datalist id="huge_to_list"></datalist>
+
+
+
+
+						<input type="date" id="departureDate" style="width: 150px"
+							min="setMinDate()" th:field="*{departureDate}" name="date">
+
+
+
+						<input type="date" id="arrivalDate" th:field="*{arrivalDate}"
+							style="width: 150px" min="setMinDateForReturn()" name="date">
+
+
+
+
+						<input type="number" id="numberOfTickets" name="tentacles"
+							th:field="*{numberOfTickets}" value="1" min="1" max="10">
+
+
+
+						<button type="submit" form="myForm" value="Submit">Search</button>
+
+						<br> <br>
+						
+
+
+					</form>
+				</div>
+			</div>
+
+<form action="#" th:id="mainForm"
+		th:action="@{/search/returndisplay.html}" method="POST"
+		th:object="${display}">
+			<div class="container">
+			<h1>
+							Select Trip 
+						</h1>
+						
+						<br>
+				<table id="trainTest1" border="1" width="700">
+					<tr>
+						<th>Saver</th>
+						<th>Value</th>
+						<th>Flexible</th>
+						<th>Business</th>
+						<th>Premium</th>
+					</tr>
 				</table>
-				
-								
-				</form>		
-			</th:block>
-		</div>
-	</main>
+			</div>
+			<div class="container">
+
+
+				<th:block th:each="journey, stat : ${display.journyList}">
+					<br>
+					<br>
+
+					<form action="#" th:id="'form'+${stat.index}"
+						th:action="@{/search/returndisplay.html}">
+
+						<input type="hidden" th:field="*{searchModel.fromStn}">
+						<input type="hidden" th:field="*{searchModel.toStn}">
+						<input type="hidden" th:field="*{searchModel.departureDate}">
+						<input type="hidden" th:field="*{searchModel.arrivalDate}">
+						<input type="hidden" th:field="*{searchModel.numberOfTickets}">
+						<input type="hidden" th:field="*{searchModel.tripType}">
+						<input type="hidden" id="tripId" th:field="*{searchModel.tripId}">
+						<input type="hidden" id="price" th:field="*{searchModel.price}">
+
+						<table>
+							<tr>
+								<td><span
+									th:text="${'TOTAL TRAVEL TIME: ' + journey.duration}"></span>
+								<td>
+								<td>
+								<td>
+								<td>
+									<button type="submit" form="mainForm"
+										onclick="selectedTrip(this.value)" th:value="${stat.index}">Search</button>
+							<tr>
+								<td><input type="radio" th:id="'saver'+${stat.index}"
+									th:field="*{journyList[__${stat.index}__].tripType}"
+									th:value="${journey.saverPrice}" /><span
+									th:text="${journey.saverPrice}"></span>
+								<td><input type="radio" th:id="'value'+${stat.index}"
+									th:field="*{journyList[__${stat.index}__].tripType}"
+									th:value="${journey.valuePrice}" /><span
+									th:text="${journey.valuePrice}"></span>
+								<td><input type="radio" th:id="'flexible'+${stat.index}"
+									th:field="*{journyList[__${stat.index}__].tripType}"
+									th:value="${journey.flexiblePrice}" /><span
+									th:text="${journey.flexiblePrice}"></span>
+								<td><input type="radio" th:id="'business'+${stat.index}"
+									th:field="*{journyList[__${stat.index}__].tripType}"
+									th:value="${journey.businessPrice}" /><span
+									th:text="${journey.businessPrice}"></span>
+								<td><input type="radio" th:id="'premium'+${stat.index}"
+									th:field="*{journyList[__${stat.index}__].tripType}"
+									th:value="${journey.premiumPrice}" /><span
+									th:text="${journey.premiumPrice}"></span>
+									
+									 <input type="hidden"
+									th:id="'tripId_'+${stat.index}" th:value="${journey.tripId}">
+									<!-- <input type="text" th:id="'tripId_'+${stat.index}" th:text="${journey.tripId}"> -->
+							<tr>
+								<td><a href=""
+									th:text="${journey.routeId +' ' + journey.routeName}"></a>
+								<td>
+								<td><span style="color: blue; font-size: 28px;"
+									th:text="${journey.fromStaionCode +' ('+ journey.departureTime +')'}"></span>
+								<td><span style="color: blue; font-size: 28px;"
+									th:text="${journey.toStationCode+' ('+ journey.arrivalTime+ ')'}"></span>
+								<td><span th:text="${journey.duration}"></span>
+							<tr>
+								<td><a href=""
+									th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
+								<td><a href=""
+									th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
+								<td><a href=""
+									th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
+								<td><a href=""
+									th:text="${display.searchModel.numberOfTickets +' Business Coach seats '}"></a></td>
+								<td><a href=""
+									th:text="${display.searchModel.numberOfTickets +' Premium Coach seats '}"></a></td>
+						</table>
+
+
+					</form>
+				</th:block>
+			</div>
+		</main>
 	</form>
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
