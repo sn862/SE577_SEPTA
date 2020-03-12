@@ -155,8 +155,8 @@
 								<td>
 								<td>
 								<td>
-									<button type="submit" form="mainForm"
-										onclick="selectedTrip(this.value)" th:value="${stat.index}">Search</button>
+									<button type="submit" th:id="'button_'+${stat.index}"  form="mainForm"
+										onclick="return selectedTrip(this.value)" th:value="${stat.index}">Search</button>
 							<tr>
 								<td><input type="radio" th:id="'saver'+${stat.index}"
 									th:field="*{journyList[__${stat.index}__].tripType}"

@@ -43,12 +43,16 @@ function selectedTrip(val){
 
 function selectedreturnTrip(val){
  document.getElementById("returnTripId").value = document.getElementById("tripId_"+val).value;
-	 
-	 document.getElementById("returnPrice").value = validatePriceCheck(val);
+	 if(validatePriceCheck(val) == false){
+		 return false;
+	 }else{
+		 document.getElementById("returnPrice").value = validatePriceCheck(val);
+		 return true;
+	 }
+	
 }
 function validatePriceCheck(val){
 	if(document.getElementById("saver"+val).checked == true){
-		alert(document.getElementById("saver"+val).value)
 		return document.getElementById("saver"+val).value;
 	}else if (document.getElementById("value"+val).checked == true){
 		return document.getElementById("value"+val).value;
@@ -59,9 +63,15 @@ function validatePriceCheck(val){
 	}else if(document.getElementById("premium"+val).checked == true){
 		return document.getElementById("premium"+val).value;
 	}else{
-		alert("select price");
+		alert("Please Select Train class and desired Price");
 		return false;
 	}
+}
+
+function submitForm(event){
+    event.preventDefault();
+
+
 }
 function onload() {
 	document.getElementById("departureDate").valueAsDate = new Date();
@@ -137,6 +147,10 @@ function onToSationKeyPress(val) {
 	    });
 }
 
+}
+
+function submitting(){
+	alert(document.getElementById('city').value);
 }
 
 

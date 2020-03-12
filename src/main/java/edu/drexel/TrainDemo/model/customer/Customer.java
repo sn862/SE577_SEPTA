@@ -2,20 +2,11 @@ package edu.drexel.TrainDemo.model.customer;
 
 public class Customer {
 
-	private Long id;
 	private String firstName;
 	private String lastName;
 	private int age;
 	private String email;
 	private String contactNumber;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -55,6 +46,12 @@ public class Customer {
 
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", email=" + email
+				+ ", contactNumber=" + contactNumber + "]";
 	}
 
 }
