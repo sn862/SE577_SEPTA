@@ -15,8 +15,8 @@ public class StopTime {
 	@Id
 	@Column(name="trip_id")
 	private Long tripId;
-	
-	private int stop_sequence;
+	@Column(name="stop_sequence")
+	private int stopSequence;
 	
 	private String departure_time; 
 	private String arrival_time;
@@ -26,11 +26,11 @@ public class StopTime {
 	
 
 	
-	public int getStop_sequence() {
-		return stop_sequence;
+	public int getStopSequence() {
+		return stopSequence;
 	}
-	public void setStop_sequence(int stop_sequence) {
-		this.stop_sequence = stop_sequence;
+	public void setStop_sequence(int stopSequence) {
+		this.stopSequence = stopSequence;
 	}
 
 	
@@ -72,7 +72,7 @@ public class StopTime {
 	}
 	@Override
 	public String toString() {
-		return "StopTime [stopId=" + stopId + ", tripId=" + tripId + ", stop_sequence=" + stop_sequence
+		return "StopTime [stopId=" + stopId + ", tripId=" + tripId + ", stopSequence=" + stopSequence
 				+ ", departure_time=" + departure_time + ", arrival_time=" + arrival_time + ", pickup_type="
 				+ pickup_type + ", dropoff_type=" + dropoff_type + "]";
 	}

@@ -2,16 +2,21 @@ package edu.drexel.TrainDemo.service.itinerary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import edu.drexel.TrainDemo.entities.itinerary.Route;
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
+import edu.drexel.TrainDemo.entities.itinerary.StopTime;
 import edu.drexel.TrainDemo.entities.itinerary.Trip;
 import edu.drexel.TrainDemo.model.Itinerary.Itinerary;
+import edu.drexel.TrainDemo.model.Itinerary.ReadableStopTime;
+import edu.drexel.TrainDemo.model.Itinerary.RouteInfo;
 import edu.drexel.TrainDemo.repositories.itinerary.AgencyRepository;
 import edu.drexel.TrainDemo.repositories.itinerary.RouteRepository;
 import edu.drexel.TrainDemo.repositories.itinerary.StopRepository;
+import edu.drexel.TrainDemo.repositories.itinerary.StopTimeRepository;
 import edu.drexel.TrainDemo.repositories.itinerary.TripRepository;
 @Service
 public class ItineraryServiceImpl implements ItineraryService {
@@ -20,11 +25,19 @@ public class ItineraryServiceImpl implements ItineraryService {
 	private RouteRepository routeRepository;
 	private StopRepository stopRepo;
 	private TripRepository tripRepo;
+	private StopTimeRepository stopTimeRepo;
+	
 
-	public ItineraryServiceImpl(AgencyRepository agencyRepository, RouteRepository routeRepository) {
+	
+
+	public ItineraryServiceImpl(AgencyRepository agencyRepository, RouteRepository routeRepository,
+			StopRepository stopRepo, TripRepository tripRepo, StopTimeRepository stopTimeRepo) {
 		super();
 		this.agencyRepository = agencyRepository;
 		this.routeRepository = routeRepository;
+		this.stopRepo = stopRepo;
+		this.tripRepo = tripRepo;
+		this.stopTimeRepo = stopTimeRepo;
 	}
 
 	@Override
@@ -50,9 +63,22 @@ public class ItineraryServiceImpl implements ItineraryService {
 	}
 
 	@Override
-	public String getTripInfo() {
+	public List<RouteInfo> getTripInfo() {
+		List<RouteInfo> routeInfoList = new ArrayList<RouteInfo>();
+		
 		List<Trip> trips= tripRepo.findAll();
-		return null;
+		for(Trip trip:trips) {
+			
+			Optional<Route> route= routeRepository.findById(trip.getRoute_id());
+			List<StopTime> stopTimes = stopTimeRepo.findByTripIdOrderByStopSequence(trip.getId());
+			List<ReadableStopTime> readableStopTimes = new ArrayList<ReadableStopTime>();
+			for(StopTime stopTime: stopTimes) {
+				
+				readableStopTimes.add(new ReadableStopTime(stopTime.getStopId(), stopTime.getDeparture_time()));
+			}
+			routeInfoList.add(new RouteInfo(route.get().getId(), route.get().getName(), readableStopTimes));
+		}
+		return routeInfoList;
 	}
 	
 }

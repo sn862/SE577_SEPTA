@@ -12,5 +12,7 @@ public interface StopTimeRepository extends JpaRepository<StopTime, StopTimeIdCl
 
 	List<StopTime> findByStopId(String stopId);
 
+	List<StopTime> findByTripIdOrderByStopSequence(Long id);
+
 
 }

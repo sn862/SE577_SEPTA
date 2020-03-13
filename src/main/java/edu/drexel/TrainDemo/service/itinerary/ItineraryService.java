@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import edu.drexel.TrainDemo.entities.itinerary.Route;
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
 import edu.drexel.TrainDemo.model.Itinerary.Itinerary;
+import edu.drexel.TrainDemo.model.Itinerary.RouteInfo;
 @Service
 public interface ItineraryService {
 
@@ -16,7 +17,7 @@ public interface ItineraryService {
 
 	List<Route> getRouteInfo();
 
-	String getTripInfo();
+	List<RouteInfo> getTripInfo();
 
 	
 
