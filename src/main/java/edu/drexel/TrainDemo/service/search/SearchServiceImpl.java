@@ -76,9 +76,8 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public List<Journey> getOneWayTrip(String fromCity, String toCity, String date) {
 		List<Journey> journeys = new ArrayList<Journey>();
-		List<StopTime> fromstaions = filterTripsBydate(fromCity, date);
-		for (StopTime fromTime : fromstaions) {
-			
+		List<StopTime> fromStations = filterTripsBydate(fromCity, date);
+		for (StopTime fromTime : fromStations) {
 			Optional<StopTime> toTime = stopTimeRepository.findById(new StopTimeIdClass(toCity, fromTime.getTripId()));
 			if (toTime.isPresent() && (fromTime.getStopSequence() < toTime.get().getStopSequence())) {
 				journeys.add(constructJourney(fromTime, toTime));
@@ -86,7 +85,6 @@ public class SearchServiceImpl implements SearchService {
 
 			}
 		}
-		
 		return journeys;
 	}
 
