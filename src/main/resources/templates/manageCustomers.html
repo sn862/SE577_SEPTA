@@ -132,11 +132,11 @@
 		<div id="createcustomer">
 			<h4>Create Customer</h4>
 			<br />
-			<form id="customer" action="" method="POST">
+			<form id="customer" action="" th:action="@{/customer/save}" th:object="${customer}" method="POST">
 				<div class="control-group">
 					<label>Customer first name</label>
 					<div class="controls">
-						<input id="billing.firstName" name="billing.firstName"
+						<input id="firstName" name="firstName" th:field="*{firstName}"
 							class="input-large highlight" type="text" value="" maxlength="64" />
 						<span class="help-inline"></span>
 					</div>
@@ -144,16 +144,16 @@
 				<div class="control-group">
 					<label>Customer last name</label>
 					<div class="controls">
-						<input id="billing.lastName" name="billing.lastName"
+						<input id="lastName" name="lastName" th:field="*{lastName}"
 							class="input-large highlight" type="text" value="" maxlength="64" />
 						<span class="help-inline"></span>
 					</div>
 				</div>
 
 				<div class="control-group">
-					<label>User Name</label>
+					<label>Age </label>
 					<div class="controls">
-						<input id="billing.userName" name="billing.userName"
+						<input id="age" name="age" th:field="*{age}"
 							class="input-large highlight" type="text" value="" maxlength="64" />
 						<span class="input-large uneditable-input"></span>
 					</div>
@@ -162,7 +162,7 @@
 				<div class="control-group">
 					<label>Customer email address</label>
 					<div class="controls">
-						<input id="emailAddress" name="emailAddress"
+						<input id="emailAddress" name="emailAddress" th:field="*{email}"
 							class="input-large highlight" type="text" value="" maxlength="96" />
 						<span class="help-inline"></span>
 					</div>
@@ -171,7 +171,7 @@
 				<div class="control-group">
 					<label>Customer phone</label>
 					<div class="controls">
-						<input id="billing.telephone" name="billing.telephone"
+						<input id="telephone" name="telephone" th:field="*{contactNumber}"
 							class="input-large highlight" type="text" value="" maxlength="32" />
 						<span class="help-inline"></span>
 					</div>
@@ -189,13 +189,16 @@
 		<div class="container">
 		<table>
 		<th>id</th>
-		<th>name</th>
-		<th>id</th>
-		<th>name</th>
-		<th>id</th>
-		<th>name</th>
-		
-		<tr><td>1</td><td>hello</td></tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Email</th>
+		<th>Phone Number</th>
+		<tr>
+		<td>1</td>
+		<td>hello</td>
+		<td>1</td>
+		<td>1</td>
+		</tr>
 		
 		</table>
 		</div>

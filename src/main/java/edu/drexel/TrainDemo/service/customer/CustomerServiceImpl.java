@@ -35,4 +35,10 @@ public class CustomerServiceImpl implements CustomerService {
 		addressRepo.save(address);
 	}
 
+	@Override
+	public Customer saveCustomer(edu.drexel.TrainDemo.model.customer.Customer model) {
+		Customer c= new Customer(model.getFirstName(), model.getLastName(), model.getAge(), model.getEmail(), model.getContactNumber());
+		return customerRepo.save(c);
+	}
+
 }
