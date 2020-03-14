@@ -19,13 +19,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.drexel.TrainDemo.controllers.checkout.CheckoutController;
-import edu.drexel.TrainDemo.model.Itinerary.Journey;
+import edu.drexel.TrainDemo.model.Itinerary.OneWayTrip;
+import edu.drexel.TrainDemo.model.Itinerary.RoundTrip;
+import edu.drexel.TrainDemo.model.Itinerary.Segment;
 import edu.drexel.TrainDemo.model.checkout.Checkout;
 import edu.drexel.TrainDemo.model.customer.Address;
 import edu.drexel.TrainDemo.model.customer.Customer;
 import edu.drexel.TrainDemo.model.customer.Passenger;
 import edu.drexel.TrainDemo.model.payment.Payment;
-import edu.drexel.TrainDemo.model.search.Display;
+import edu.drexel.TrainDemo.model.search.DisplayAvailableItineraries;
 import edu.drexel.TrainDemo.model.search.FowardForm;
 import edu.drexel.TrainDemo.model.search.SearchModel;
 import edu.drexel.TrainDemo.service.search.SearchService;
@@ -41,7 +43,6 @@ public class SearchController {
 		SearchModel searchModel = new SearchModel();
 		searchModel.setTripType("OneWay");
 		searchModel.setNumberOfTickets(1);
-
 		model.addAttribute("search", searchModel);
 		return "index";
 	}
@@ -59,7 +60,7 @@ public class SearchController {
 	 */
 	@GetMapping("/search/getOneWayTrip/{fromCity}/{toCity}/{date}")
 	@ResponseBody
-	public List<Journey> getOneWayTrip(@PathVariable("fromCity") String fromCity, @PathVariable("toCity") String toCity,
+	public OneWayTrip getOneWayTrip(@PathVariable("fromCity") String fromCity, @PathVariable("toCity") String toCity,
 			@PathVariable("date") String date) {
 		return searchService.getOneWayTrip(fromCity, toCity, date);
 	}
@@ -69,35 +70,39 @@ public class SearchController {
 	 */
 	@GetMapping("/search/getRoundTrip/{fromCity}/{toCity}/{departureDate}/{returnDate}")
 	@ResponseBody
-	public ArrayList<List<Journey>> getRoundTrip(@PathVariable("fromCity") String fromCity,
+	public RoundTrip getRoundTrip(@PathVariable("fromCity") String fromCity,
 			@PathVariable("toCity") String toCity, @PathVariable("departureDate") String departureDate,
 			@PathVariable("returnDate") String returnDate) {
 		return searchService.getRoundTrip(fromCity, toCity, departureDate, returnDate);
 	}
 
 	@PostMapping("/search/display.html")
-	public String displayItineraries(SearchModel model, Model modelrequest) {
+	public String displayItineraries(SearchModel searchModel, Model model) {
 
-		String fromStation = model.getFromStn().substring(model.getFromStn().length() - 4,
-				model.getFromStn().length() - 1);
-		String toStation = model.getToStn().substring(model.getToStn().length() - 4, model.getToStn().length() - 1);
-		Display display = new Display();
-		display.setSearchModel(model);
-		display.setJournyList(getOneWayTrip(fromStation, toStation, model.getDepartureDate()));
-
-		modelrequest.addAttribute("display", display);
-		modelrequest.addAttribute("searchModel", model);
+		String fromStation = searchModel.getFromStn().substring(searchModel.getFromStn().length() - 4,
+				searchModel.getFromStn().length() - 1);
+		String toStation = searchModel.getToStn().substring(searchModel.getToStn().length() - 4, searchModel.getToStn().length() - 1);
+		
+		
+		DisplayAvailableItineraries display = new DisplayAvailableItineraries();
+		display.setSearchModel(searchModel);
+		display.setOneWayTrip(getOneWayTrip(fromStation, toStation, searchModel.getDepartureDate()));
+		model.addAttribute("displayItineraries", display);
+		System.out.println(display);
+		model.addAttribute("searchModel", searchModel);
 		return "display";
 
 	}
 
 	@PostMapping("/search/returndisplay.html")
-	public String displayItineraries(@ModelAttribute("display") Display form, Model model) {
+	public String displayItineraries(@ModelAttribute("display") DisplayAvailableItineraries form, Model model) {
+		System.out.println("return trip entry "+ form);
 		if (isOneWayTrip(form)) {
 			return invokeCheckoutpage(form, model);
 
 		} else {
 			if (form.getSearchModel().getReturnPrice() != null && form.getSearchModel().getReturnTripId() != null) {
+				System.out.println(form);
 				return invokeCheckoutpage(form, model);
 			} else {
 				return invokeReturnTripPage(form, model);
@@ -107,27 +112,28 @@ public class SearchController {
 
 	}
 
-	private String invokeReturnTripPage(Display form, Model model) {
-		System.out.println(form.getSearchModel());
+	private String invokeReturnTripPage(DisplayAvailableItineraries form, Model model) {
 		String toStation = form.getSearchModel().getFromStn().substring(form.getSearchModel().getFromStn().length() - 4,
 				form.getSearchModel().getFromStn().length() - 1);
 		String fromStation = form.getSearchModel().getToStn().substring(form.getSearchModel().getToStn().length() - 4,
 				form.getSearchModel().getToStn().length() - 1);
-		form.setReturnJournyList(getOneWayTrip(fromStation, toStation, form.getSearchModel().getArrivalDate()));
-		Display returnDisplay = new Display();
+		form.setOneWayTrip(getOneWayTrip(fromStation, toStation, form.getSearchModel().getArrivalDate()));
+		
+		
+		DisplayAvailableItineraries returnDisplay = new DisplayAvailableItineraries();
 		returnDisplay.setSearchModel(form.getSearchModel());
-		returnDisplay
-				.setReturnJournyList(getOneWayTrip(fromStation, toStation, form.getSearchModel().getArrivalDate()));
+		returnDisplay.setOneWayTrip(getOneWayTrip(fromStation, toStation, form.getSearchModel().getArrivalDate()));
 		SearchModel searchModel = new SearchModel();
 		searchModel = form.getSearchModel();
 		System.out.println(searchModel);
 		model.addAttribute("searchModel", searchModel);
-		model.addAttribute("display", returnDisplay);
+		model.addAttribute("displayItineraries", returnDisplay);
 		return "returndisplay";
 	}
 
-	private String invokeCheckoutpage(Display form, Model model) {
+	private String invokeCheckoutpage(DisplayAvailableItineraries form, Model model) {
 		Checkout checkout = new Checkout();
+		System.out.println(form.getSearchModel());
 		checkout.setId(1);
 		checkout.setSearchModel(form.getSearchModel());
 		Customer customer = new Customer();
@@ -147,7 +153,7 @@ public class SearchController {
 		return "checkout";
 	}
 
-	private boolean isOneWayTrip(Display form) {
+	private boolean isOneWayTrip(DisplayAvailableItineraries form) {
 		System.out.println(form.getSearchModel().getTripType());
 		if (form.getSearchModel().getTripType().equals("OneWay")) {
 			return true;

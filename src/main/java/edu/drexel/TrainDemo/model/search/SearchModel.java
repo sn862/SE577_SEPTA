@@ -8,10 +8,8 @@ public class SearchModel {
 	private String arrivalDate;
 	private int numberOfTickets;
 	private String tripType;
-
 	private String tripId;
-	private String price;
-
+	private Double price;
 	private String returnTripId;
 	private String returnPrice;
 
@@ -23,11 +21,13 @@ public class SearchModel {
 		this.tripId = tripId;
 	}
 
-	public String getPrice() {
+	
+
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

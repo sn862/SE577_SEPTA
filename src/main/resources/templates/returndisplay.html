@@ -55,7 +55,7 @@
 				<div class="container">
 					<form autocomplete="off" method="POST" id="myForm" action="#"
 						th:action="@{/search/display.html}"
-						th:object="${display.searchModel}">
+						th:object="${searchModel}">
 
 
 
@@ -111,11 +111,9 @@
 
 <form action="#" th:id="mainForm"
 		th:action="@{/search/returndisplay.html}" method="POST"
-		th:object="${display}">
+		th:object="${displayItineraries}">
 			<div class="container">
-			<h1>
-							Select Trip 
-						</h1>
+			<h1 id="totalPrice">Select Return Trip Cart total</h1>
 						
 						<br>
 				<table id="trainTest1" border="1" width="700">
@@ -129,9 +127,10 @@
 				</table>
 			</div>
 			<div class="container">
-
-
-				<th:block th:each="journey, stat : ${display.returnJournyList}">
+		
+				<th:block th:each="itinerary, itinerarystat : ${displayItineraries.oneWayTrip.fromItinerary}">
+				<th:block th:each="segments, segmentstat : ${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__]}">
+				<th:block th:each="journey, stat : ${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__]}">
 					<br>
 					<br>
 
@@ -142,12 +141,13 @@
 						<input type="hidden" th:field="*{searchModel.toStn}">
 						<input type="hidden" th:field="*{searchModel.departureDate}">
 						<input type="hidden" th:field="*{searchModel.arrivalDate}">
-						<input type="hidden" th:field="*{searchModel.numberOfTickets}">
+						<input type="hidden" th:id="numberOfTickets" th:field="*{searchModel.numberOfTickets}">
 						<input type="hidden" th:field="*{searchModel.tripType}">
 						<input type="hidden" id="tripId" th:field="*{searchModel.tripId}">
-						<input type="hidden" id="price" th:field="*{searchModel.price}">
-						<input type="hidden" id="returnTripId" th:field="*{searchModel.returnTripId}">
-						<input type="hidden" id="returnPrice" th:field="*{searchModel.returnPrice}">
+						 <input type="hidden" id="price" th:field="*{searchModel.price}">
+						 
+						 <input type="hidden" id="returnTripId" th:field="*{searchModel.returnTripId}">
+						 <input type="hidden" id="returnPrice" th:field="*{searchModel.returnPrice}">
 
 						<table>
 							<tr>
@@ -157,53 +157,68 @@
 								<td>
 								<td>
 								<td>
-									<button type="submit" form="mainForm"
-										onclick="selectedreturnTrip(this.value)" th:value="${stat.index}">Search</button>
+									<button type="submit" th:id="'button_'+${stat.index}"  form="mainForm"
+										onclick="selectedreturnTrip(this.value)" th:value="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].tripId}">Search</button>
 							<tr>
-								<td><input type="radio" th:id="'saver'+${stat.index}"
-									th:field="*{returnJournyList[__${stat.index}__].tripType}"
-									th:value="${journey.saverPrice}" /><span
-									th:text="${journey.saverPrice}"></span>
-								<td><input type="radio" th:id="'value'+${stat.index}"
-									th:field="*{returnJournyList[__${stat.index}__].tripType}"
+							<!-- <th:block th:each="price, classstat : ${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices}">
+								<td><input type="radio" onclick="setCartTotal(this.value)" unchecked th:field="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices}" th:value="${price}" />
+								 <label th:for="${destinationAddress.destinationAddressId}" th:text="${destinationAddress}"></label>
+								<label th:for="${#ids.prev('journey.prices')}" th:text="${ price}"></label>
+								<span
+									th:text="${price}"></span>
+								</th:block> -->
+								<td><input type="radio" th:id="'value'+${stat.index}" onclick="setCartTotalonreturn(this.value)"
+									th:value="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices[0]}" /><span
+									th:text="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices[0]}"></span>
+									
+									<td><input type="radio" th:id="'value'+${stat.index}" onclick="setCartTotalonreturn(this.value)"
+									th:value="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices[1]}" /><span
+									th:text="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices[1]}"></span>
+									<td><input type="radio" th:id="'value'+${stat.index}" onclick="setCartTotalonreturn(this.value)"
+									th:value="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices[2]}" /><span
+									th:text="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices[2]}"></span>
+									<td><input type="radio" th:id="'value'+${stat.index}" onclick="setCartTotalonreturn(this.value)"
+									th:value="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices[3]}" /><span
+									th:text="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices[3]}"></span>
+									<td><input type="radio" th:id="'value'+${stat.index}" onclick="setCartTotalonreturn(this.value)"
+									th:value="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices[4]}" /><span
+									th:text="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices[4]}"></span>
+								<!-- <td><input type="radio" th:id="'value'+${stat.index}" onclick="setCartTotal(this.value)"
 									th:value="${journey.valuePrice}" /><span
 									th:text="${journey.valuePrice}"></span>
-								<td><input type="radio" th:id="'flexible'+${stat.index}"
-									th:field="*{returnJournyList[__${stat.index}__].tripType}"
+								<td><input type="radio" th:id="'flexible'+${stat.index}" onclick="setCartTotal(this.value)"
 									th:value="${journey.flexiblePrice}" /><span
 									th:text="${journey.flexiblePrice}"></span>
-								<td><input type="radio" th:id="'business'+${stat.index}"
-									th:field="*{returnJournyList[__${stat.index}__].tripType}"
+								<td><input type="radio" th:id="'business'+${stat.index}" onclick="setCartTotal(this.value)"
 									th:value="${journey.businessPrice}" /><span
 									th:text="${journey.businessPrice}"></span>
-								<td><input type="radio" th:id="'premium'+${stat.index}"
-									th:field="*{returnJournyList[__${stat.index}__].tripType}"
+								<td><input type="radio" th:id="'premium'+${stat.index}" onclick="setCartTotal(this.value)"
 									th:value="${journey.premiumPrice}" /><span
-									th:text="${journey.premiumPrice}"></span>
+									th:text="${journey.premiumPrice}"></span> -->
 									
 									 <input type="hidden"
 									th:id="'tripId_'+${stat.index}" th:value="${journey.tripId}">
 									<!-- <input type="text" th:id="'tripId_'+${stat.index}" th:text="${journey.tripId}"> -->
 							<tr>
 								<td><a href=""
-									th:text="${journey.routeId +' ' + journey.routeName}"></a>
+									th:text="${journey.route.id +' ' + journey.route.name}"></a>
 								<td>
 								<td><span style="color: blue; font-size: 28px;"
-									th:text="${journey.fromStaionCode +' ('+ journey.departureTime +')'}"></span>
+									th:text="${journey.departureStation.stopId +' ('+ journey.departureStation.departure_time +')'}"></span>
 								<td><span style="color: blue; font-size: 28px;"
-									th:text="${journey.toStationCode+' ('+ journey.arrivalTime+ ')'}"></span>
+									th:text="${journey.arrivalStation.stopId+' ('+ journey.arrivalStation.arrival_time+ ')'}"></span>
 								<td><span th:text="${journey.duration}"></span>
 							<tr>
 								<td><a href=""
-									th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
+									th:text="${displayItineraries.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
 								<td><a href=""
-									th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
+									th:text="${displayItineraries.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
 								<td><a href=""
-									th:text="${display.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
+									th:text="${displayItineraries.searchModel.numberOfTickets +' Reserved Coach seats '}"></a></td>
 								<td><a href=""
-									th:text="${display.searchModel.numberOfTickets +' Business Coach seats '}"></a></td>
+									th:text="${displayItineraries.searchModel.numberOfTickets +' Business Coach seats '}"></a></td>
 								<td><a href=""
-									th:text="${display.searchModel.numberOfTickets +' Premium Coach seats '}"></a></td>
+									th:text="${displayItineraries.searchModel.numberOfTickets +' Premium Coach seats '}"></a></td>
 						</table>
 
 

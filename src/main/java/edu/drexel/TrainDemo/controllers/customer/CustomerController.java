@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.drexel.TrainDemo.model.customer.Customer;
-import edu.drexel.TrainDemo.model.search.Display;
+import edu.drexel.TrainDemo.model.search.DisplayAvailableItineraries;
 import edu.drexel.TrainDemo.service.customer.CustomerService;
 
 @Controller
@@ -20,7 +20,7 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	@PostMapping("/customer.html")
-	public String getCustomerPage( @ModelAttribute("display") Display display) {
+	public String getCustomerPage( @ModelAttribute("display") DisplayAvailableItineraries display) {
 		System.out.println(display.getSearchModel());
 		return "customer";
 	}
