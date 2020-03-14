@@ -20,7 +20,10 @@ import edu.drexel.TrainDemo.entities.itinerary.StopTime;
 import edu.drexel.TrainDemo.entities.itinerary.StopTimeIdClass;
 import edu.drexel.TrainDemo.entities.itinerary.Trip;
 import edu.drexel.TrainDemo.model.Itinerary.Itinerary;
-import edu.drexel.TrainDemo.model.Itinerary.Journey;
+import edu.drexel.TrainDemo.model.Itinerary.Itinerary2;
+import edu.drexel.TrainDemo.model.Itinerary.OneWayTrip;
+import edu.drexel.TrainDemo.model.Itinerary.RoundTrip;
+import edu.drexel.TrainDemo.model.Itinerary.Segment;
 import edu.drexel.TrainDemo.repositories.itinerary.AgencyRepository;
 import edu.drexel.TrainDemo.repositories.itinerary.CalendarRepository;
 import edu.drexel.TrainDemo.repositories.itinerary.RouteRepository;
@@ -74,18 +77,39 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<Journey> getOneWayTrip(String fromCity, String toCity, String date) {
-		List<Journey> journeys = new ArrayList<Journey>();
+	public OneWayTrip getOneWayTrip(String fromCity, String toCity, String date) {
+		OneWayTrip oneWayTrip = new OneWayTrip();
+		
+		oneWayTrip. setFromItinerary(getItineraries(fromCity, toCity, date));
+		return oneWayTrip;
+	}
+
+	private List<Itinerary2> getItineraries(String fromCity, String toCity, String date) {
+		List<Itinerary2> fromItineraries= new ArrayList<Itinerary2>();
+		
+		
 		List<StopTime> fromStations = filterTripsBydate(fromCity, date);
+		
+		
 		for (StopTime fromTime : fromStations) {
+			Itinerary2 itinerary= new Itinerary2();
+			List<Segment> segments = new ArrayList<Segment>();
 			Optional<StopTime> toTime = stopTimeRepository.findById(new StopTimeIdClass(toCity, fromTime.getTripId()));
 			if (toTime.isPresent() && (fromTime.getStopSequence() < toTime.get().getStopSequence())) {
-				journeys.add(constructJourney(fromTime, toTime));
+				
+				segments.add(constructJourney(fromTime, toTime));
+				itinerary.setSegments(segments);
+				fromItineraries.add(itinerary);
 			} else {
 
-			}
+			}		
+			
 		}
-		return journeys;
+		
+		
+		
+		
+		return fromItineraries;
 	}
 
 	private List<StopTime> filterTripsBydate(String fromCity, String date) {
@@ -111,30 +135,33 @@ public class SearchServiceImpl implements SearchService {
 		return fromStations;
 	}
 
-	private Journey constructJourney(StopTime fromTime, Optional<StopTime> toTime) {
-		Journey journey= new Journey();
-		journey.setFromStaionCode(fromTime.getStopId());
-		journey.setFromStationName(stopRepository.findById(fromTime.getStopId()).get().getName());
-		journey.setToStationCode(toTime.get().getStopId());
-		journey.setToStationName(stopRepository.findById(toTime.get().getStopId()).get().getName());
-		journey.setDepartureTime(fromTime.getDeparture_time());
-		journey.setArrivalTime(toTime.get().getArrival_time());
-		journey.setRouteId(tripRepository.findById(fromTime.getTripId()).get().getRoute_id());
-		journey.setRouteName(routeRepository.findById(tripRepository.findById(fromTime.getTripId()).get().getRoute_id()).get().getName());
-		journey.setSaverPrice("$66.0");
-		journey.setValuePrice("$120.0");
-		journey.setFlexiblePrice("$180.0");
-		journey.setBusinessPrice("$230.0");
-		journey.setPremiumPrice("$299.0");
-		journey.setTripId(fromTime.getTripId().toString());
+	private Segment constructJourney(StopTime fromTime, Optional<StopTime> toTime)  {
+		Segment segment= new Segment();
+		segment.setDepartureStation(fromTime);
+		segment.setArrivalStation(toTime.get());
 		try {
-			journey.setDuration(calculateDuration(fromTime.getDeparture_time(),toTime.get().getArrival_time()));
+			segment.setDuration(calculateDuration(fromTime.getDeparture_time(),toTime.get().getArrival_time()));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return journey;
+		segment.setTripId(fromTime.getTripId());
+		List<String> trainClasses = new ArrayList<String>();
+		trainClasses.add("Saver");
+		trainClasses.add("Value");
+		trainClasses.add("Flexible");
+		trainClasses.add("Business");
+		trainClasses.add("Premium");		
+		List<Double> prices = new ArrayList<Double>();
+		prices.add(60.0);
+		prices.add(120.0);
+		prices.add(180.0);
+		prices.add(220.0);
+		prices.add(290.0);		
+		segment.setTrainClasses(trainClasses);
+		segment.setPrices(prices);
+		segment.setRoute(routeRepository.findById(tripRepository.findById(fromTime.getTripId()).get().getRoute_id()).get());		
+		return segment;
 	}
 
 	private String calculateDuration(String arrivalTime, String departureTime) throws ParseException {
@@ -163,16 +190,12 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public ArrayList<List<Journey>> getRoundTrip(String fromCity, String toCity, String departureDate, String returnDate) {
-		ArrayList<List<Journey>> response = new ArrayList<List<Journey>>();
+	public RoundTrip getRoundTrip(String fromCity, String toCity, String departureDate, String returnDate) {
+		RoundTrip roundTrip = new RoundTrip();
+		roundTrip.setFromItinerary(getItineraries(fromCity, toCity, departureDate));
+		roundTrip.setToItinerary(getItineraries(toCity, fromCity, returnDate));
 		
-		List<Journey> forwardJourney = getOneWayTrip(fromCity, toCity, departureDate);
 		
-		List<Journey> returnJourney = getOneWayTrip(toCity, fromCity, returnDate);
-		
-		response.add(forwardJourney);
-		response.add(returnJourney);
-		
-		return response;
+		return roundTrip;
 	}
 }

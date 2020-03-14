@@ -16,4 +16,6 @@ public interface CustomerService {
 
 	void updateBillingDetails(Address address);
 
+	Customer saveCustomer(edu.drexel.TrainDemo.model.customer.Customer model);
+
 }

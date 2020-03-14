@@ -32,41 +32,34 @@ var logout = function() {
 }
 
 function selectedTrip(val){
+	alert("hello");
+	 document.getElementById("tripId").value = val;
 	
-	 document.getElementById("tripId").value = document.getElementById("tripId_"+val).value;
-	 
-	 document.getElementById("price").value = validatePriceCheck(val);
-	
-	
+}
+function setCartTotal(value){
+	alert("hello");
+	var tickets= document.getElementById("numberOfTickets").value;
+	document.getElementById("price").value= tickets * value;
+	document.getElementById("totalPrice").innerHTML="Select Onward Trip Cart total: $"+ tickets * value;
 	
 }
 
-function selectedreturnTrip(val){
- document.getElementById("returnTripId").value = document.getElementById("tripId_"+val).value;
-	 if(validatePriceCheck(val) == false){
-		 return false;
-	 }else{
-		 document.getElementById("returnPrice").value = validatePriceCheck(val);
-		 return true;
-	 }
+function setCartTotalonreturn(value){
+	var tickets= document.getElementById("numberOfTickets").value;
+	document.getElementById("returnPrice").value= tickets * value;
+	var price = document.getElementById("price").value;
+	var returnPrice= tickets * value;
+	var total = +price + +returnPrice;
+	document.getElementById("totalPrice").innerHTML="Select Return Trip Cart total: $"+ total;
 	
 }
-function validatePriceCheck(val){
-	if(document.getElementById("saver"+val).checked == true){
-		return document.getElementById("saver"+val).value;
-	}else if (document.getElementById("value"+val).checked == true){
-		return document.getElementById("value"+val).value;
-	}else if (document.getElementById("flexible"+val).checked == true) {
-		return document.getElementById("flexible"+val).value;
-	}else if(document.getElementById("business"+val).checked == true){
-		return document.getElementById("business"+val).value;
-	}else if(document.getElementById("premium"+val).checked == true){
-		return document.getElementById("premium"+val).value;
-	}else{
-		alert("Please Select Train class and desired Price");
-		return false;
-	}
+
+
+function selectedreturnTrip(val){
+	 document.getElementById("returnTripId").value = val;
+	
 }
+
 
 function submitForm(event){
     event.preventDefault();
@@ -77,6 +70,7 @@ function onload() {
 	document.getElementById("departureDate").valueAsDate = new Date();
 	document.getElementById("oneway").checked;
 		document.getElementById("arrivalDate").style.display = 'none';
+		
 	
 }
 
@@ -149,9 +143,7 @@ function onToSationKeyPress(val) {
 
 }
 
-function submitting(){
-	alert(document.getElementById('city').value);
-}
+
 
 
 

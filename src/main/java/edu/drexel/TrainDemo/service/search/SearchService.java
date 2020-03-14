@@ -9,16 +9,19 @@ import org.springframework.stereotype.Service;
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
 import edu.drexel.TrainDemo.entities.itinerary.Trip;
 import edu.drexel.TrainDemo.model.Itinerary.Itinerary;
-import edu.drexel.TrainDemo.model.Itinerary.Journey;
+import edu.drexel.TrainDemo.model.Itinerary.Itinerary2;
+import edu.drexel.TrainDemo.model.Itinerary.OneWayTrip;
+import edu.drexel.TrainDemo.model.Itinerary.RoundTrip;
+import edu.drexel.TrainDemo.model.Itinerary.Segment;
 
 @Service
 public interface SearchService {
 
 	List<Itinerary> getItineraries();
 
-	List<Journey> getOneWayTrip(String fromCity, String toCity, String date);
+	OneWayTrip getOneWayTrip(String fromCity, String toCity, String date);
 
 	List<Stop> getStops(String searchString);
 
-	ArrayList<List<Journey>> getRoundTrip(String fromCity, String toCity, String departureDate, String returnDate);
+	RoundTrip getRoundTrip(String fromCity, String toCity, String departureDate, String returnDate);
 }

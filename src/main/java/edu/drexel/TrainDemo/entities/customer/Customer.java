@@ -1,20 +1,38 @@
 package edu.drexel.TrainDemo.entities.customer;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Customer {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Column
 	private String firstName;
+	@Column
 	private String lastName;
+	@Column
 	private int age;
+	@Column
 	private String email;
-
-	private Long billingAddressId;
+	
+	@Column
 	private String contactNumber;
+
+	
+	public Customer(String firstName, String lastName, int age, String email, String contactNumber) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.email = email;
+		this.contactNumber = contactNumber;
+	}
 
 	public Long getId() {
 		return id;
@@ -56,13 +74,7 @@ public class Customer {
 		this.email = email;
 	}
 
-	public Long getBillingAddressId() {
-		return billingAddressId;
-	}
-
-	public void setBillingAddressId(Long billingAddressId) {
-		this.billingAddressId = billingAddressId;
-	}
+	
 
 	public String getContactNumber() {
 		return contactNumber;
