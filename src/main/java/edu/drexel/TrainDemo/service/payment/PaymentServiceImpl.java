@@ -6,15 +6,15 @@ import edu.drexel.TrainDemo.entities.payment.Payment;
 import edu.drexel.TrainDemo.repositories.payment.PaymentRepository;
 
 @Service
-public class PaymentServiceImpl implements PaymentService{
+public class PaymentServiceImpl implements PaymentService {
 	private PaymentRepository paymentrepo;
-	
 
 	public PaymentServiceImpl(PaymentRepository paymentrepo) {
 		super();
 		this.paymentrepo = paymentrepo;
 	}
 
+	@Override
 	public Payment getPaymentDetails() {
 		return null;
 
@@ -23,6 +23,12 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public void processPayment(Payment payment) {
 		paymentrepo.save(payment);
+	}
+
+	@Override
+	public Long savePaymentDetails(Payment paymentDetails) {
+		Payment payment = paymentrepo.save(paymentDetails);
+		return payment.getId();
 	}
 
 }

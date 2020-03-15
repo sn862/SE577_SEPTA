@@ -20,11 +20,10 @@ public class Customer {
 	private int age;
 	@Column
 	private String email;
-	
+
 	@Column
 	private String contactNumber;
 
-	
 	public Customer(String firstName, String lastName, int age, String email, String contactNumber) {
 		super();
 		this.firstName = firstName;
@@ -73,8 +72,6 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
 
 	public String getContactNumber() {
 		return contactNumber;

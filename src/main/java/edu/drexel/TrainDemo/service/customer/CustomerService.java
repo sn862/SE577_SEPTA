@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import edu.drexel.TrainDemo.entities.customer.Address;
 import edu.drexel.TrainDemo.entities.customer.Customer;
+import edu.drexel.TrainDemo.model.customer.Passenger;
 
 @Service
 public interface CustomerService {
@@ -15,6 +16,14 @@ public interface CustomerService {
 	void updateCustomerDetails(Customer customer);
 
 	void updateBillingDetails(Address address);
+
+	Customer saveCustomer(Customer customer);
+
+//	Long saveCustomer(Customer customer);
+
+	Address saveAddressDetails(Address address);
+
+	void savePassengers(List<Passenger> passengerList, Long customerId);
 
 	Customer saveCustomer(edu.drexel.TrainDemo.model.customer.Customer model);
 

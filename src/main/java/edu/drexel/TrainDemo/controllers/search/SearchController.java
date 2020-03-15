@@ -10,25 +10,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.drexel.TrainDemo.controllers.checkout.CheckoutController;
 import edu.drexel.TrainDemo.model.Itinerary.OneWayTrip;
 import edu.drexel.TrainDemo.model.Itinerary.RoundTrip;
-import edu.drexel.TrainDemo.model.Itinerary.Segment;
 import edu.drexel.TrainDemo.model.checkout.Checkout;
 import edu.drexel.TrainDemo.model.customer.Address;
 import edu.drexel.TrainDemo.model.customer.Customer;
 import edu.drexel.TrainDemo.model.customer.Passenger;
 import edu.drexel.TrainDemo.model.payment.Payment;
 import edu.drexel.TrainDemo.model.search.DisplayAvailableItineraries;
-import edu.drexel.TrainDemo.model.search.FowardForm;
 import edu.drexel.TrainDemo.model.search.SearchModel;
 import edu.drexel.TrainDemo.service.search.SearchService;
 
@@ -70,9 +65,8 @@ public class SearchController {
 	 */
 	@GetMapping("/search/getRoundTrip/{fromCity}/{toCity}/{departureDate}/{returnDate}")
 	@ResponseBody
-	public RoundTrip getRoundTrip(@PathVariable("fromCity") String fromCity,
-			@PathVariable("toCity") String toCity, @PathVariable("departureDate") String departureDate,
-			@PathVariable("returnDate") String returnDate) {
+	public RoundTrip getRoundTrip(@PathVariable("fromCity") String fromCity, @PathVariable("toCity") String toCity,
+			@PathVariable("departureDate") String departureDate, @PathVariable("returnDate") String returnDate) {
 		return searchService.getRoundTrip(fromCity, toCity, departureDate, returnDate);
 	}
 
@@ -81,9 +75,9 @@ public class SearchController {
 
 		String fromStation = searchModel.getFromStn().substring(searchModel.getFromStn().length() - 4,
 				searchModel.getFromStn().length() - 1);
-		String toStation = searchModel.getToStn().substring(searchModel.getToStn().length() - 4, searchModel.getToStn().length() - 1);
-		
-		
+		String toStation = searchModel.getToStn().substring(searchModel.getToStn().length() - 4,
+				searchModel.getToStn().length() - 1);
+
 		DisplayAvailableItineraries display = new DisplayAvailableItineraries();
 		display.setSearchModel(searchModel);
 		display.setOneWayTrip(getOneWayTrip(fromStation, toStation, searchModel.getDepartureDate()));
@@ -96,7 +90,7 @@ public class SearchController {
 
 	@PostMapping("/search/returndisplay.html")
 	public String displayItineraries(@ModelAttribute("display") DisplayAvailableItineraries form, Model model) {
-		System.out.println("return trip entry "+ form);
+		System.out.println("return trip entry " + form);
 		if (isOneWayTrip(form)) {
 			return invokeCheckoutpage(form, model);
 
@@ -118,8 +112,7 @@ public class SearchController {
 		String fromStation = form.getSearchModel().getToStn().substring(form.getSearchModel().getToStn().length() - 4,
 				form.getSearchModel().getToStn().length() - 1);
 		form.setOneWayTrip(getOneWayTrip(fromStation, toStation, form.getSearchModel().getArrivalDate()));
-		
-		
+
 		DisplayAvailableItineraries returnDisplay = new DisplayAvailableItineraries();
 		returnDisplay.setSearchModel(form.getSearchModel());
 		returnDisplay.setOneWayTrip(getOneWayTrip(fromStation, toStation, form.getSearchModel().getArrivalDate()));
@@ -137,7 +130,6 @@ public class SearchController {
 		checkout.setId(1);
 		checkout.setSearchModel(form.getSearchModel());
 		Customer customer = new Customer();
-		customer.setFirstName("hello");
 		checkout.setCustomer(customer);
 		checkout.setBillingAddress(new Address());
 		List<Passenger> passengerList = new ArrayList<Passenger>();

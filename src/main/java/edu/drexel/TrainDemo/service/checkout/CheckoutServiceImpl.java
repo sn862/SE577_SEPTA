@@ -6,9 +6,8 @@ import org.springframework.stereotype.Service;
 import edu.drexel.TrainDemo.entities.customer.Address;
 import edu.drexel.TrainDemo.entities.customer.Customer;
 import edu.drexel.TrainDemo.entities.payment.Payment;
+import edu.drexel.TrainDemo.model.checkout.Checkout;
 import edu.drexel.TrainDemo.model.checkout.OrderSummary;
-import edu.drexel.TrainDemo.model.checkout.SubmitOrder;
-import edu.drexel.TrainDemo.model.order.Order;
 import edu.drexel.TrainDemo.service.customer.CustomerService;
 import edu.drexel.TrainDemo.service.itinerary.ItineraryService;
 import edu.drexel.TrainDemo.service.order.OrderService;
@@ -38,16 +37,48 @@ public class CheckoutServiceImpl implements CheckoutService {
 	}
 
 	@Override
-	public OrderSummary commitOrder(SubmitOrder submitOrder) {
-		Customer customer = customerservice.getCustomerDetails();
-		customerservice.updateCustomerDetails(customer);
-		customerservice.updateBillingDetails(new Address());
-		paymentservice.processPayment(new Payment());
-		Order order = orderservice.submitOrder(new Order());
+	public OrderSummary commitOrder(Checkout checkout) {
 
-		OrderSummary summary = orderservice.getOrderSummary(order);
+		Customer customer = new Customer(checkout.getCustomer().getFirstName(), checkout.getCustomer().getLastName(),
+				checkout.getCustomer().getAge(), checkout.getCustomer().getEmail(),
+				checkout.getCustomer().getContactNumber());
 
-		return summary;
+		Customer customerentity = customerservice.saveCustomer(customer);
+
+		Address address = new Address(checkout.getBillingAddress().getStrtAddressLine1(),
+				checkout.getBillingAddress().getStrrAddressLine2(), checkout.getBillingAddress().getCity(),
+				checkout.getBillingAddress().getState(), checkout.getBillingAddress().getCountry(),
+				checkout.getBillingAddress().getZipcode(), customer.getId());
+
+		Address addressId = customerservice.saveAddressDetails(address);
+
+		Payment payment = new Payment(checkout.getPayment().getPaymentType(), checkout.getPayment().getCname(),
+				checkout.getPayment().getCnum(), checkout.getPayment().getMonth(), checkout.getPayment().getYear(),
+				checkout.getPayment().getCvv(), checkout.getPayment().getPrice(), customer.getId(), addressId.getId());
+		System.out.println("..........");
+		System.out.println(checkout.getSearchModel().getPrice());
+
+		Long paymentId = paymentservice.savePaymentDetails(payment);
+
+		System.out.println("..Itinearies List..");
+		System.out.println(checkout.getSearchModel());
+		customerservice.savePassengers(checkout.getPassengerList(), customer.getId());
+
+//	customer --> address --> passengers --> payment --> order --> iternary
+//	
+//	passenger customer
+
+//		order --> customer id, payment details, itineary,
+
+//		Customer customer = customerservice.getCustomerDetails();
+//		customerservice.updateCustomerDetails(customer);
+//		customerservice.updateBillingDetails(new Address());
+//		paymentservice.processPayment(new Payment());
+//		Order order = orderservice.submitOrder(new Order());
+//
+//		OrderSummary summary = orderservice.getOrderSummary(order);
+
+		return null;
 	}
 
 }

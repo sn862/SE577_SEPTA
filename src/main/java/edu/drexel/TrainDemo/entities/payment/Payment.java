@@ -3,22 +3,50 @@ package edu.drexel.TrainDemo.entities.payment;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Payment {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String paymentType;
-	private String paymentModule;
-	private String orderStatus;
 	private Date datePurchased;
-	private String currency;
-	private boolean customerAgreed;
-	private boolean confirmedAddress;
-	private String comments;
+	private Long billingAddressId;
+	private Long customerId;
+	private int cnum;
+	private String cname;
+	private String month;
+	private int year;
+	private int cvv;
+	private String price;
+
+	public Payment(String paymentType, String cname, int cnum, String month, int year, int cvv, String price,
+			Long customerId, Long addressId) {
+		this.paymentType = paymentType;
+		this.cname = cname;
+		this.cnum = cnum;
+		this.month = month;
+		this.year = year;
+		this.cvv = cvv;
+		this.price = price;
+		this.customerId = customerId;
+		this.billingAddressId = addressId;
+		this.datePurchased = new Date();
+
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
 
 	public Long getId() {
 		return id;
@@ -36,22 +64,6 @@ public class Payment {
 		this.paymentType = paymentType;
 	}
 
-	public String getPaymentModule() {
-		return paymentModule;
-	}
-
-	public void setPaymentModule(String paymentModule) {
-		this.paymentModule = paymentModule;
-	}
-
-	public String getOrderStatus() {
-		return orderStatus;
-	}
-
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
-	}
-
 	public Date getDatePurchased() {
 		return datePurchased;
 	}
@@ -60,36 +72,60 @@ public class Payment {
 		this.datePurchased = datePurchased;
 	}
 
-	public String getCurrency() {
-		return currency;
+	public Long getBillingAddressId() {
+		return billingAddressId;
 	}
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
+	public void setBillingAddressId(Long billingAddressId) {
+		this.billingAddressId = billingAddressId;
 	}
 
-	public boolean isCustomerAgreed() {
-		return customerAgreed;
+	public Long getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomerAgreed(boolean customerAgreed) {
-		this.customerAgreed = customerAgreed;
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 
-	public boolean isConfirmedAddress() {
-		return confirmedAddress;
+	public int getCnum() {
+		return cnum;
 	}
 
-	public void setConfirmedAddress(boolean confirmedAddress) {
-		this.confirmedAddress = confirmedAddress;
+	public void setCnum(int cnum) {
+		this.cnum = cnum;
 	}
 
-	public String getComments() {
-		return comments;
+	public String getCname() {
+		return cname;
 	}
 
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public int getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(int cvv) {
+		this.cvv = cvv;
 	}
 
 }

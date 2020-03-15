@@ -64,16 +64,18 @@
                   <input type="text" id="lastName" name="name"
                      th:field="*{lastName}" size="25" placeholder="Last Name">
                   <input type="number" id="age" name="age" th:field="*{age}" min="1"
-                     max="100" placeholder="Age"> <input type="email"
+                     max="100" placeholder="Age">
+                  <input type="email"
                      id="email" name="email" th:field="*{email}" min="1" max="100"
-                     placeholder="Email"> <input type="tel" id="phone"
+                     placeholder="Email">  
+                  <input type="tel" id="phone"
                      th:field="*{contactNumber}" name="phone"
                     
                      placeholder=" Contact Number"> <br>
                </div>
                <hr>
                <h4>Other Passenger Details</h4>
-               <br />
+
                
                <div th:each="passenger, stat :${checkout.passengerList}">
                <br>
@@ -97,8 +99,8 @@
                   id="address2" name="address2" th:field="*{strrAddressLine2}" size="50"
                   placeholder="Address 2">
                  
-                  <br/>
-                  
+                  <br>
+                  <br>
                   <input type="text"
                   id="city" name="city" th:field="*{city}" size="30"
                   placeholder="City">
@@ -160,8 +162,9 @@
                   <br>
                   <br>
                    <input type="Text"
-                  id="address2" name="pincode" th:field="*{country}" size="20"
-                  placeholder="Country">
+                  id="address2" name="pincode" th:field="*{country}" size="20" value="USA"
+                  placeholder="Country" readonly>
+                  
                   <input type="number"
                   id="address2" name="pincode" th:field="*{zipcode}" size="10"
                   placeholder="Zipcode">
@@ -182,8 +185,8 @@
                      
                      <input checked type="radio" id="creditcard" name="paymentType"
 							th:field="*{paymentType}" th:value="creditcard"> <label for="Credit card">Credit card</label>
-							
-							<input checked type="radio" id="debitcard" name="paymentType"
+					&nbsp		
+					<input checked type="radio" id="debitcard" name="paymentType"
 							th:field="*{paymentType}" th:value="debitcard"> <label for="Debit card">Debit card</label>
 
 
@@ -210,14 +213,16 @@
                   <option value="feb">Feb</option>
                   <option value="march">March</option>
                   </select>
+                  
+                  &nbsp&nbsp&nbsp
                   <input type="number"
-                     id="year" name="year" th:field="*{year}" size="4"
+                     id="year" name="year" th:field="*{year}" min="1000" max="9999"
                      placeholder="Year">
                  
-                     
+                     &nbsp&nbsp&nbsp
                      
                      <input type="number"
-                     id="cvv" name="cvv" th:field="*{cvv}" size="3"
+                     id="cvv" name="cvv" th:field="*{cvv}" min = "100" max="999" 
                      placeholder="CVV">
                  </div>
                  <div th:object="${checkout.searchModel}">

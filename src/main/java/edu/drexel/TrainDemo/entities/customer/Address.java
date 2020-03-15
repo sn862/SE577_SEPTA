@@ -1,12 +1,15 @@
 package edu.drexel.TrainDemo.entities.customer;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Address {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String addressLine1;
 	private String addressLine2;
@@ -14,6 +17,20 @@ public class Address {
 	private String stateProvince;
 	private String country;
 	private int zipCode;
+	private Long customerId;
+
+	public Address(String strtAddressLine1, String strrAddressLine2, String city, String state, String country, int zip,
+			Long customerId) {
+
+		this.addressLine1 = strtAddressLine1;
+		this.addressLine2 = strrAddressLine2;
+		this.city = city;
+		this.stateProvince = state;
+		this.country = country;
+		this.zipCode = zip;
+		this.customerId = customerId;
+
+	}
 
 	public Long getId() {
 		return id;
@@ -69,6 +86,14 @@ public class Address {
 
 	public void setZipCode(int zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 
 }
