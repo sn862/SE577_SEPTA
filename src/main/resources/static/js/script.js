@@ -18,6 +18,7 @@ $.get("/user", function(data) {
 	$(".unauthenticated").hide();
 	$(".authenticated").show();
 }).fail(function() {
+	
 	$(".unauthenticated").show();
 	$(".authenticated").hide();
 });

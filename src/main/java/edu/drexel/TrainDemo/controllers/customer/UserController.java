@@ -11,39 +11,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.drexel.TrainDemo.model.customer.Users;
-import edu.drexel.TrainDemo.model.user.User;
 
 @Controller
-@RequestMapping("/admin/*")
 public class UserController {
 
-	@RequestMapping("/users")
+	@RequestMapping("/admin/users")
 	public String getUsers(Model model) {
 		model.addAttribute("user", new Users());
 		return "manageusers";
-		
+
 	}
-	
-	
-	@RequestMapping("/groups")
+
+	@RequestMapping("/admin/groups")
 	public String getGroups(Model model) {
 		return "managegroups";
-		
-	}
-	
 
-	@PostMapping("/users/save")
+	}
+
+	@PostMapping("/admin/users/save")
 	public String saveUser(@ModelAttribute("user") Users user, Model model) {
 		System.out.println(user);
 		model.addAttribute("user", user);
 		return "manageusers";
-		
+
 	}
-	
-	 @GetMapping("/user")
-	    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-	        return Collections.singletonMap("name", principal.getAttribute("name"));
-	    }
+
+	@GetMapping("/user")
+	@ResponseBody
+	public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+		System.out.println("hello" );
+		return Collections.singletonMap("name", principal.getAttribute("name"));
+	}
 }
