@@ -26,9 +26,8 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public Long savePaymentDetails(Payment paymentDetails) {
-		Payment payment = paymentrepo.save(paymentDetails);
-		return payment.getId();
+	public Payment savePaymentDetails(Payment paymentDetails) {
+		return paymentrepo.save(paymentDetails);
 	}
 
 }

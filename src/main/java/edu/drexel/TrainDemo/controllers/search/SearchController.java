@@ -133,7 +133,7 @@ public class SearchController {
 		checkout.setCustomer(customer);
 		checkout.setBillingAddress(new Address());
 		List<Passenger> passengerList = new ArrayList<Passenger>();
-		for (int i = 0; i < form.getSearchModel().getNumberOfTickets(); i++) {
+		for (int i = 0; i < form.getSearchModel().getNumberOfTickets()-1; i++) {
 			Passenger passenger = new Passenger();
 			passengerList.add(passenger);
 		}

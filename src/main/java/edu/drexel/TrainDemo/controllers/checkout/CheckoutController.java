@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.drexel.TrainDemo.model.checkout.Checkout;
+import edu.drexel.TrainDemo.model.checkout.OrderSummary;
 import edu.drexel.TrainDemo.service.checkout.CheckoutService;
 
 @Controller
@@ -18,18 +19,11 @@ public class CheckoutController {
 	@Autowired
 	private CheckoutService checkoutService;
 
-//	@RequestMapping("/submit")
-//	public OrderSummary checkout(@RequestBody SubmitOrder submitOrder, HttpServletRequest request,
-//			HttpServletResponse response) {
-//
-//		return checkoutService.commitOrder(submitOrder);
-//
-//	}
 
 	@PostMapping("/submitOrder")
 	@ResponseBody
 	public String submitOrder(@ModelAttribute("checkout") Checkout checkout, Model model) {
-		checkoutService.commitOrder(checkout);
+		OrderSummary summary = checkoutService.commitOrder(checkout);
 		return "hello";
 
 	}

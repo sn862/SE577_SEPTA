@@ -25,6 +25,9 @@ public class Payment {
 	private int cvv;
 	private String price;
 
+	public Payment() {
+		
+	}
 	public Payment(String paymentType, String cname, int cnum, String month, int year, int cvv, String price,
 			Long customerId, Long addressId) {
 		this.paymentType = paymentType;

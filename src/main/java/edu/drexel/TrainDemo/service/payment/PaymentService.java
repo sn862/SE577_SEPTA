@@ -11,6 +11,6 @@ public interface PaymentService {
 
 	void processPayment(Payment payment);
 
-	Long savePaymentDetails(Payment payment);
+	Payment savePaymentDetails(Payment payment);
 
 }

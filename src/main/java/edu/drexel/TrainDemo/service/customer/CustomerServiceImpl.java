@@ -19,10 +19,11 @@ public class CustomerServiceImpl implements CustomerService {
 	private AddressRepository addressRepo;
 	private PassengerRepository passengerRepo;
 
-	public CustomerServiceImpl(CustomerRepository customerRepo, AddressRepository addressRepo) {
+	public CustomerServiceImpl(CustomerRepository customerRepo, AddressRepository addressRepo, PassengerRepository passengerRepo) {
 		super();
 		this.customerRepo = customerRepo;
 		this.addressRepo = addressRepo;
+		this.passengerRepo= passengerRepo;
 	}
 
 	@Override
@@ -54,11 +55,6 @@ public class CustomerServiceImpl implements CustomerService {
 				model.getContactNumber());
 		return customerRepo.save(c);
 	}
-//	public Long saveCustomer(Customer customer) {
-//		customerRepo.save(customer);
-//		Long customerId = customer.getId();
-//		return customerId;
-//	}
 
 	@Override
 	public Address saveAddressDetails(Address address) {
@@ -68,13 +64,16 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void savePassengers(List<Passenger> passengerList, Long customerId) {
+		System.out.println(passengerList);
 		for (Passenger passenger : passengerList) {
+			System.out.println(passenger);
 			passenger passengerDetails = new passenger();
 			passengerDetails.setCustomerId(customerId);
 			passengerDetails.setfName(passenger.getfName());
 			passengerDetails.setlName(passenger.getlName());
 			passengerDetails.setAge(passenger.getAge());
-
+			System.out.println(customerId);
+			System.out.println(passengerDetails);
 			passengerRepo.save(passengerDetails);
 
 		}

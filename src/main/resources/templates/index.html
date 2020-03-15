@@ -74,12 +74,12 @@
 						
 					<input type="text" id="fromStn"  name="station" th:field="*{fromStn}"
 						size="25" list="huge_from_list"
-						oninput="onFromSationKeyPress(this.value)" placeholder="From City">
+						oninput="onFromSationKeyPress(this.value)" placeholder="From City" required>
 					<datalist id="huge_from_list"></datalist>
 					
 					<input type="text" id="toStn" name="station" size="25"  th:field="*{toStn}"
 						list="huge_to_list" oninput="onToSationKeyPress(this.value)"
-						placeholder="To City">
+						placeholder="To City" required>
 					<datalist id="huge_to_list"></datalist>
 					
 					

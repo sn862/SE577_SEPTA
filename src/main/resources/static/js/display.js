@@ -32,12 +32,10 @@ var logout = function() {
 }
 
 function selectedTrip(val){
-	alert("hello");
 	 document.getElementById("tripId").value = val;
 	
 }
 function setCartTotal(value){
-	alert("hello");
 	var tickets= document.getElementById("numberOfTickets").value;
 	document.getElementById("price").value= tickets * value;
 	document.getElementById("totalPrice").innerHTML="Select Onward Trip Cart total: $"+ tickets * value;

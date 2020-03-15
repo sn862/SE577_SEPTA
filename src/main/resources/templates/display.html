@@ -70,14 +70,14 @@
 						<label for="roundTrip">RoundTrip</label> <input type="text"
 							id="fromStn" name="station" th:field="*{fromStn}" size="25"
 							list="huge_from_list" oninput="onFromSationKeyPress(this.value)"
-							placeholder="From City">
+							placeholder="From City" required>
 						<datalist id="huge_from_list"></datalist>
 
 
 
 						<input type="text" id="toStn" name="station" size="25"
 							th:field="*{toStn}" list="huge_to_list"
-							oninput="onToSationKeyPress(this.value)" placeholder="To City">
+							oninput="onToSationKeyPress(this.value)" placeholder="To City" required>
 						<datalist id="huge_to_list"></datalist>
 
 
@@ -155,7 +155,7 @@
 								<td>
 								<td>
 									<button type="submit" th:id="'button_'+${stat.index}"  form="mainForm"
-										onclick="selectedTrip(this.value)" th:value="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].tripId}">Search</button>
+										onclick="selectedTrip(this.value)" th:value="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].tripId}">ADD TO CART</button>
 							<tr>
 							<!-- <th:block th:each="price, classstat : ${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices}">
 								<td><input type="radio" onclick="setCartTotal(this.value)" unchecked th:field="${displayItineraries.oneWayTrip.fromItinerary[__${itinerarystat.index}__].segments[__${segmentstat.index}__].prices}" th:value="${price}" />

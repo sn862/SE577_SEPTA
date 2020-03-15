@@ -18,7 +18,9 @@ public class Address {
 	private String country;
 	private int zipCode;
 	private Long customerId;
-
+	public  Address() {
+		
+	}
 	public Address(String strtAddressLine1, String strrAddressLine2, String city, String state, String country, int zip,
 			Long customerId) {
 

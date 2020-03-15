@@ -24,6 +24,9 @@ public class Customer {
 	@Column
 	private String contactNumber;
 
+	public Customer() {
+		
+	}
 	public Customer(String firstName, String lastName, int age, String email, String contactNumber) {
 		super();
 		this.firstName = firstName;

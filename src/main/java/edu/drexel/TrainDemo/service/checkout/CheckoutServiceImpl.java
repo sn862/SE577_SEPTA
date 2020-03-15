@@ -27,6 +27,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 	@Autowired
 	private ItineraryService itineraryservice;
+	
 
 	public CheckoutServiceImpl(OrderService orderservice, CustomerService customerservice,
 			PaymentService paymentservice) {
@@ -38,45 +39,44 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 	@Override
 	public OrderSummary commitOrder(Checkout checkout) {
+		Customer customer= new Customer();
+		Address address= new Address();
+		Payment payment= new Payment();
+		if(checkout != null && checkout.getCustomer() != null) {
+			customer= new Customer(checkout.getCustomer().getFirstName(), checkout.getCustomer().getLastName(),
+						checkout.getCustomer().getAge(), checkout.getCustomer().getEmail(),
+						checkout.getCustomer().getContactNumber());
+			customer= customerservice.saveCustomer(customer);
+		}
+		
+		if(checkout != null && checkout.getBillingAddress() != null) {
+			address = new Address(checkout.getBillingAddress().getStrtAddressLine1(),
+					checkout.getBillingAddress().getStrrAddressLine2(), checkout.getBillingAddress().getCity(),
+					checkout.getBillingAddress().getState(), checkout.getBillingAddress().getCountry(),
+					checkout.getBillingAddress().getZipcode(), customer.getId());
+			address= customerservice.saveAddressDetails(address);
+		}
+		
+		if(checkout != null && checkout.getPayment() != null) {
+			 payment = new Payment(checkout.getPayment().getPaymentType(), checkout.getPayment().getCname(),
+						checkout.getPayment().getCnum(), checkout.getPayment().getMonth(), checkout.getPayment().getYear(),
+						checkout.getPayment().getCvv(), checkout.getPayment().getPrice(), customer.getId(), address.getId());
+			 
+			 payment= paymentservice.savePaymentDetails(payment);
+		}
 
-		Customer customer = new Customer(checkout.getCustomer().getFirstName(), checkout.getCustomer().getLastName(),
-				checkout.getCustomer().getAge(), checkout.getCustomer().getEmail(),
-				checkout.getCustomer().getContactNumber());
+		if(checkout != null && checkout.getPassengerList() != null) {
+			
+			customerservice.savePassengers(checkout.getPassengerList(), customer.getId());
+		}
+		
+		
 
-		Customer customerentity = customerservice.saveCustomer(customer);
+		
 
-		Address address = new Address(checkout.getBillingAddress().getStrtAddressLine1(),
-				checkout.getBillingAddress().getStrrAddressLine2(), checkout.getBillingAddress().getCity(),
-				checkout.getBillingAddress().getState(), checkout.getBillingAddress().getCountry(),
-				checkout.getBillingAddress().getZipcode(), customer.getId());
+		
 
-		Address addressId = customerservice.saveAddressDetails(address);
 
-		Payment payment = new Payment(checkout.getPayment().getPaymentType(), checkout.getPayment().getCname(),
-				checkout.getPayment().getCnum(), checkout.getPayment().getMonth(), checkout.getPayment().getYear(),
-				checkout.getPayment().getCvv(), checkout.getPayment().getPrice(), customer.getId(), addressId.getId());
-		System.out.println("..........");
-		System.out.println(checkout.getSearchModel().getPrice());
-
-		Long paymentId = paymentservice.savePaymentDetails(payment);
-
-		System.out.println("..Itinearies List..");
-		System.out.println(checkout.getSearchModel());
-		customerservice.savePassengers(checkout.getPassengerList(), customer.getId());
-
-//	customer --> address --> passengers --> payment --> order --> iternary
-//	
-//	passenger customer
-
-//		order --> customer id, payment details, itineary,
-
-//		Customer customer = customerservice.getCustomerDetails();
-//		customerservice.updateCustomerDetails(customer);
-//		customerservice.updateBillingDetails(new Address());
-//		paymentservice.processPayment(new Payment());
-//		Order order = orderservice.submitOrder(new Order());
-//
-//		OrderSummary summary = orderservice.getOrderSummary(order);
 
 		return null;
 	}
