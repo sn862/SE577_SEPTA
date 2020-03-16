@@ -20,10 +20,11 @@ public class CheckoutController {
 	private CheckoutService checkoutService;
 
 	@PostMapping("/submitOrder")
-	@ResponseBody
-	public OrderSummary submitOrder(@ModelAttribute("checkout") Checkout checkout, Model model) {
-		OrderSummary summary = checkoutService.commitOrder(checkout);
-		return summary;
+	public String submitOrder(@ModelAttribute("checkout") Checkout checkout, Model model) {
+		OrderSummary orderSummary = checkoutService.commitOrder(checkout);
+		System.out.println(orderSummary);
+		model.addAttribute("orderSummary", orderSummary);
+		return "confirmation";
 
 	}
 

@@ -23,12 +23,12 @@ public class Payment {
 	private String month;
 	private int year;
 	private int cvv;
-	private String price;
+	private Double price;
 
 	public Payment() {
 		
 	}
-	public Payment(String paymentType, String cname, int cnum, String month, int year, int cvv, String price,
+	public Payment(String paymentType, String cname, int cnum, String month, int year, int cvv, Double price,
 			Long customerId, Long addressId) {
 		this.paymentType = paymentType;
 		this.cname = cname;
@@ -43,14 +43,14 @@ public class Payment {
 
 	}
 
-	public String getPrice() {
+	
+
+	public Double getPrice() {
 		return price;
 	}
-
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
-
 	public Long getId() {
 		return id;
 	}

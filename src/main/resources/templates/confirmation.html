@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Train Ticket</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width" />
+<base href="/" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<a class="navbar-brand" href="#">Train Ticket</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarsExampleDefault"
+			aria-controls="navbarsExampleDefault" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">Home
+						<span class="sr-only">(current)</span>
+				</a></li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="ml-auto nav-item authenticated dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="profile-name"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+					<div class="dropdown-menu" aria-labelledby="profile-name">
+						<a class="dropdown-item" href="#" onclick="logout()">Sign Out</a>
+					</div></li>
+				<li class="ml-auto nav-item unauthenticated"><a
+					class="nav-link" href="#" data-toggle="modal"
+					data-target="#signInModal">Sign In</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<main role="main">
+		<div class="jumbotron">
+			<div class="container">
+				<div th:object="${orderSummary}">
+					<h1>Confirmation Page!!</h1>
+					<div th:object="${orderSummary.customer}">
+						<span> <i>Hello </span> <span
+							th:text="${orderSummary.customer.firstName +', ' + orderSummary.customer.lastName}"></span>
+						congratulations!! Your ticket is booked.</i>
+					</div>
+					</span> <br> <br>
+					<h3 th:text="'Order ID:' +${orderSummary.order.orderId} "></h3>
+					<br>
+
+					<h3>Ticket Details:</h3>
+					<table>
+						<tr>
+							<th>From</th>
+							<th>Departure Time</th>
+							<th>Arrival Time</th>
+							<th>To</th>
+							<th>Price</th>
+						</tr>
+<!-- th:text="${orderSummary.itineraries[__${stat.index}__].route.id + ' ' + orderSummary.itineraries[__${stat.index}__].route.name}" -->
+						<tr th:each="itinerary, stat: ${orderSummary.itineraries}">
+							
+							<td><h5
+									th:text="${orderSummary.itineraries[__${stat.index}__].fromStation}"></h5></td>
+							<td
+								th:text="${orderSummary.itineraries[__${stat.index}__].depTime}"></td>
+							<td
+								th:text="${orderSummary.itineraries[__${stat.index}__].arrTime}"></td>
+							<td><h5
+									th:text="${orderSummary.itineraries[__${stat.index}__].toStation}"></h5></td>
+							<td th:text="${orderSummary.itineraries[__${stat.index}__].price}"></td>
+
+
+						</tr>
+
+
+					</table>
+					<br> <br>
+					<div th:object="${orderSummary.customer}">
+
+
+						<h3>Primary Passenger Details</h3>
+						<span th:text="'Name: ' + *{firstName} +', '+ *{lastName}"></span>
+						&nbsp <span th:field="*{age}" th:text="'Age: ' + *{age}"></span>&nbsp
+						<span th:field="*{email}" th:text="'email: '+ *{email}"></span>&nbsp
+						<span th:field="*{contactNumber}"
+							th:text="'Contact Number: '+*{contactNumber}"></span> <br> <br>
+
+
+						<h3>Other Passenger Details</h3>
+						<div th:each="passenger, stat :${orderSummary.passengers}">
+							<span
+								th:field="${orderSummary.passengers[__${stat.index}__].fName}"
+								th:text="'Name: ' + ${orderSummary.passengers[__${stat.index}__].fName + ',' + orderSummary.passengers[__${stat.index}__].lName}"></span>
+							<!-- <span th:field="${orderSummary.passengers[__${stat.index}__].lName}" th:text="${orderSummary.passengers[__${stat.index}__].lName}"></span> -->
+							&nbsp <span
+								th:field="${orderSummary.passengers[__${stat.index}__].age}"
+								th:text="'Age :' +${orderSummary.passengers[__${stat.index}__].age}"></span>
+						</div>
+					</div>
+					<div th:object="${orderSummary.payment}">
+						<br> <br>
+
+
+						<h3>Payment Details</h3>
+						<span th:text="'Paid through :'+*{paymentType}"> </span> <br>
+						<span th:text="'Paid on :'+*{datePurchased}"> </span><br> <span
+							th:text="'Paid amount :'+*{price}"> </span> 
+							
+							<br>
+							<br>
+						<form autocomplete="on" method="POST" id="search" action="#"
+							th:action="@{/}" th:object="${customerpage}">
+							<button onclick="/search/display.html">Book another
+								Ticket</button> 
+						</form>
+						<br>
+						<button onclick="window.print()">Print Ticket</button>
+						<div style="clear: both"></div>
+						<script type="text/javascript"
+							src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+						<script type="text/javascript"
+							src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+						<script type="text/javascript"
+							src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.js"></script>
+						<script type="text/javascript" src="/js/display.js"></script>
+					</div>
+				</div>
+			</div>
+	</main>
+</body>
+</html>

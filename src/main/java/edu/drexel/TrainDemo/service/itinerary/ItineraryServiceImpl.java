@@ -88,15 +88,15 @@ public class ItineraryServiceImpl implements ItineraryService {
 	}
 
 	@Override
-	public Segment getItinerary(String fromStn, String toStn, String tripId) throws ParseException {
+	public Segment getItinerary(String fromStn, String toStn, Long tripId) throws ParseException {
 		Segment segment = new Segment();
-		StopTime fromStation = stopTimeRepo.findById(new StopTimeIdClass(fromStn.substring(fromStn.length()-4, fromStn.length()-1), Long.parseLong(tripId))).get();
-		StopTime toStation = stopTimeRepo.findById(new StopTimeIdClass(toStn.substring(toStn.length()-4, toStn.length()-1), Long.parseLong(tripId))).get();
+		StopTime fromStation = stopTimeRepo.findById(new StopTimeIdClass(fromStn.substring(fromStn.length()-4, fromStn.length()-1), tripId)).get();
+		StopTime toStation = stopTimeRepo.findById(new StopTimeIdClass(toStn.substring(toStn.length()-4, toStn.length()-1), tripId)).get();
 		segment.setDepartureStation(fromStation);
 		segment.setArrivalStation(toStation);
 		segment.setDuration(Utils.calculateDuration(toStation.getArrival_time(), fromStation.getDeparture_time()));
-		segment.setTripId(Long.parseLong(tripId));
-		segment.setRoute(routeRepository.findById(tripRepo.findById(Long.parseLong(tripId)).get().getRoute_id()).get());
+		segment.setTripId(tripId);
+		segment.setRoute(routeRepository.findById(tripRepo.findById(tripId).get().getRoute_id()).get());
 		
 		return segment;
 	}

@@ -133,7 +133,6 @@ public class SearchController {
 	private String invokeCheckoutpage(DisplayAvailableItineraries form, Model model) throws ParseException {
 		Checkout checkout = new Checkout();
 		System.out.println(form.getSearchModel());
-		checkout.setId(1);
 		checkout.setSearchModel(form.getSearchModel());
 		Customer customer = new Customer();
 		checkout.setCustomer(customer);

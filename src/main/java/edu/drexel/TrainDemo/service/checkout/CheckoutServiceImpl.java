@@ -72,11 +72,17 @@ public class CheckoutServiceImpl implements CheckoutService {
 			address = customerservice.saveAddressDetails(address);
 			ordersummary.setAddress(address);
 		}
-
+		double totalPrice=0.0;
+		if(checkout.getSearchModel().getReturnPrice() != null) {
+			totalPrice= checkout.getSearchModel().getPrice() + checkout.getSearchModel().getReturnPrice();
+			
+		}else {
+			totalPrice=  checkout.getSearchModel().getPrice();
+		}
 		if (checkout != null && checkout.getPayment() != null) {
 			payment = new Payment(checkout.getPayment().getPaymentType(), checkout.getPayment().getCname(),
 					checkout.getPayment().getCnum(), checkout.getPayment().getMonth(), checkout.getPayment().getYear(),
-					checkout.getPayment().getCvv(), checkout.getPayment().getPrice(), customer.getId(),
+					checkout.getPayment().getCvv(),totalPrice , customer.getId(),
 					address.getId());
 
 			payment = paymentservice.savePaymentDetails(payment);
@@ -138,6 +144,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 			}
 
 		}
+		ordersummary.setItineraries(listOfItinerary);
 
 		return ordersummary;
 	}

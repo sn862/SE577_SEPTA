@@ -24,7 +24,7 @@ public interface ItineraryService {
 
 	List<RouteInfo> getTripInfo();
 
-	Segment getItinerary(String fromStn, String toStn, String tripId) throws ParseException;
+	Segment getItinerary(String fromStn, String toStn, Long tripId) throws ParseException;
 
 	
 	StopTime getStopTimeByTripIdandStnCode(StopTimeIdClass StopTimeIdClass);

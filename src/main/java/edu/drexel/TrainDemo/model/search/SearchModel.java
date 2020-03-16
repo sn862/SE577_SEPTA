@@ -10,7 +10,7 @@ public class SearchModel {
 	private String tripType;
 	private Long tripId;
 	private Double price;
-	private String returnTripId;
+	private Long returnTripId;
 	private Double returnPrice;
 
 	public Long getTripId() {
@@ -77,11 +77,11 @@ public class SearchModel {
 		this.arrivalDate = arrivalDate;
 	}
 
-	public String getReturnTripId() {
+	public Long getReturnTripId() {
 		return returnTripId;
 	}
 
-	public void setReturnTripId(String returnTripId) {
+	public void setReturnTripId(Long returnTripId) {
 		this.returnTripId = returnTripId;
 	}
 

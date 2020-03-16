@@ -117,7 +117,40 @@
 	<div id="paymentMethods" class="middledata">
 	
 	<h3>Payment Methods :Braintree</h3>	
-	
+	 <form  action="/admin/payments/savePaymentMethod.html" method="POST">
+
+ 
+
+                                    <div class="control-group">
+                                        <label>Enabled</label>
+                                        <div class="controls">
+                                            <input id="active1" name="active" type="checkbox" value="true" /><input type="hidden" name="_active" value="on"/>
+                                        </div>
+                                      </div>
+                                      
+                                      <div class="control-group">
+                                        <label>Default</label>
+                                        <div class="controls">
+                                            <input id="defaultSelected1" name="defaultSelected" type="checkbox" value="true" /><input type="hidden" name="_defaultSelected" value="on"/>
+                                        </div>
+                                      </div>
+                                      
+                                      <div class="controls">
+                                        <label>Environment</label>            
+                                        <div class="controls">
+                                        <select id="environment" name="environment">
+                                              <option value="TEST">TEST</option><option value="PROD" selected="selected">PROD</option>
+                                           </select>
+                                           </div>
+                                        <span class="help-inline"></span>
+                                    </div>
+                                            
+                                    <div class="form-actions">
+                                          <div class="pull-right">
+                                              <button type="submit" class="btn btn-success">Save</button>
+                                          </div>
+                                     </div>                                      
+                             </form>
    
 	</div>
 	
