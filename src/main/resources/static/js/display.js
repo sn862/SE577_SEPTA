@@ -88,6 +88,17 @@ function setMinDate(){
 function setMinDateForReturn(){
 	document.getElementById("arrivalDate").valueAsDate = document.getElementById("departureDate").val;
 }
+function onloadH3(){
+	var price = document.getElementById("price").value;
+	var returnPrice = document.getElementById("returnPrice").value;
+	if(returnPrice != null){
+		var total = +price + +returnPrice;
+		document.getElementById("totalprice").innerHTML="Total Cost: $"+ total;
+	}else{
+		document.getElementById("totalprice").innerHTML="Total Cost: $"+ price;
+	}
+	
+}
 
 function onFromSationKeyPress(val) {
 	if(val.length >1){
