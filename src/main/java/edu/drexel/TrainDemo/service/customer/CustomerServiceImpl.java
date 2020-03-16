@@ -1,5 +1,6 @@
 package edu.drexel.TrainDemo.service.customer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -19,11 +20,12 @@ public class CustomerServiceImpl implements CustomerService {
 	private AddressRepository addressRepo;
 	private PassengerRepository passengerRepo;
 
-	public CustomerServiceImpl(CustomerRepository customerRepo, AddressRepository addressRepo, PassengerRepository passengerRepo) {
+	public CustomerServiceImpl(CustomerRepository customerRepo, AddressRepository addressRepo,
+			PassengerRepository passengerRepo) {
 		super();
 		this.customerRepo = customerRepo;
 		this.addressRepo = addressRepo;
-		this.passengerRepo= passengerRepo;
+		this.passengerRepo = passengerRepo;
 	}
 
 	@Override
@@ -63,20 +65,21 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public void savePassengers(List<Passenger> passengerList, Long customerId) {
-		System.out.println(passengerList);
+	public List<passenger> savePassengers(List<Passenger> passengerList, Long customerId) {
+
+		List<passenger> listOfPassengers = new ArrayList();
+
 		for (Passenger passenger : passengerList) {
-			System.out.println(passenger);
 			passenger passengerDetails = new passenger();
 			passengerDetails.setCustomerId(customerId);
 			passengerDetails.setfName(passenger.getfName());
 			passengerDetails.setlName(passenger.getlName());
 			passengerDetails.setAge(passenger.getAge());
-			System.out.println(customerId);
-			System.out.println(passengerDetails);
-			passengerRepo.save(passengerDetails);
+			listOfPassengers.add(passengerRepo.save(passengerDetails));
 
 		}
+
+		return listOfPassengers;
 
 	}
 
