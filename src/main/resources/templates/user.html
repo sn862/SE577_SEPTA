@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Manager</title>
+</head>
+<body>
+<form id="user" action="/admin/users/save.html" method="POST">
+    <div class="control-group">
+<!--        <label>Question 1 </label>-->
+        <div class="controls">
+            <select id="userPage" name="question1"><option value="My Profile">My Profile</option><option value="Change Password">Change Password</option><option value="Users">Users</option><option value="Create a User">Create a User</option></select>
+<!--            <input id="answer1" name="answer1" class="input-large" type="text" value="">-->
+            <span class="help-inline"></span>
+        </div>
+    </div>
+    <div id="store.success" class="alert alert-success" style="display:none;">Request completed with success</div>
+    <div class="control-group">
+        <label>User name</label>
+        <div class="controls">
+            <input id="adminName" name="adminName" class="input-large highlight" onblur="validateCode()" type="text" value="Admin's Username">
+            <span class="help-inline"><div id="checkCodeStatus" style=""></div></span>
+        </div>
+    </div>
+
+    <!--    <div class="control-group">-->
+    <!--        <label>Merchant Store </label>-->
+    <!--        <div class="controls">-->
+    <!--            <select id="merchantStore.id" name="merchantStore.id"><option value="1" selected="selected">DEFAULT</option></select>-->
+    <!--            <span class="help-inline"></span>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <div class="control-group">
+        <label>Email</label>
+        <div class="controls">
+            <input id="adminEmail" name="adminEmail" class="input-large highlight" type="text" value="admin@email.com">
+            <span class="help-inline"></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label>First name </label>
+        <div class="controls">
+            <input id="firstName" name="firstName" class="input-large" type="text" value="Admin's First Name">
+            <span class="help-inline"></span>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label>Last name </label>
+        <div class="controls">
+            <input id="lastName" name="lastName" class="input-large" type="text" value="Admin's Last Name">
+            <span class="help-inline"></span>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label>Default language </label>
+        <div class="controls">
+            <select id="defaultLanguage.id" name="defaultLanguage.id"><option value="1">en</option><option value="2">fr</option></select>
+            <span class="help-inline"></span>
+        </div>
+    </div>
+
+
+    <div class="control-group">
+        <label>Groups</label>
+        <div class="controls">
+            <span><input id="groups1" name="groups" class="highlight" type="checkbox" value="2" checked="checked"><label for="groups1">ADMIN</label></span><span><br><input id="groups2" name="groups" class="highlight" type="checkbox" value="3"><label for="groups2">ADMIN_AGENCY</label></span><span><br><input id="groups3" name="groups" class="highlight" type="checkbox" value="4"><label for="groups3">ADMIN_STORE</label></span><span><br><input id="groups4" name="groups" class="highlight" type="checkbox" value="5"><label for="groups4">ADMIN_ORDER</label></span><span><br><input id="groups5" name="groups" class="highlight" type="checkbox" value="6"><label for="groups5">ADMIN_CONTENT</label></span><span><br><input id="groups6" name="groups" class="highlight" type="checkbox" value="7"><label for="groups6">CUSTOMER</label></span><input type="hidden" name="_groups" value="on">
+            <span class="help-inline"></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label><strong></strong>Active</label>
+        <div class="controls">
+            <input id="active1" name="active" type="checkbox" value="true" checked="checked"><input type="hidden" name="_active" value="on">
+        </div>
+    </div>
+    <div class="control-group">
+        <label>Question 1 </label>
+        <div class="controls">
+            <select id="question1" name="question1"><option value="What was the color of your first car?">What was the color of your first car?</option><option value="In what city were you born?">In what city were you born?</option><option value="What was the name of your first pet?">What was the name of your first pet?</option><option value="What is your preferred musical genre?">What is your preferred musical genre?</option><option value="Who was your childhood hero? ">Who was your childhood hero? </option><option value="In what city or town was your first job?">In what city or town was your first job?</option><option value="Where were you when you had your first kiss? ">Where were you when you had your first kiss? </option><option value="In which city did you met your spouse/significant other?">In which city did you met your spouse/significant other?</option><option value="What was your childhood nickname?">What was your childhood nickname?</option></select>
+            <input id="answer1" name="answer1" class="input-large" type="text" value="">
+            <span class="help-inline"></span>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label>Question 1 </label>
+        <div class="controls">
+            <select id="question2" name="question2"><option value="What was the color of your first car?">What was the color of your first car?</option><option value="In what city were you born?">In what city were you born?</option><option value="What was the name of your first pet?">What was the name of your first pet?</option><option value="What is your preferred musical genre?">What is your preferred musical genre?</option><option value="Who was your childhood hero? ">Who was your childhood hero? </option><option value="In what city or town was your first job?">In what city or town was your first job?</option><option value="Where were you when you had your first kiss? ">Where were you when you had your first kiss? </option><option value="In which city did you met your spouse/significant other?">In which city did you met your spouse/significant other?</option><option value="What was your childhood nickname?">What was your childhood nickname?</option></select>
+            <input id="answer2" name="answer2" class="input-large" type="text" value="">
+            <span class="help-inline"></span>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label>Question 3 </label>
+        <div class="controls">
+            <select id="question3" name="question3"><option value="What was the color of your first car?">What was the color of your first car?</option><option value="In what city were you born?">In what city were you born?</option><option value="What was the name of your first pet?">What was the name of your first pet?</option><option value="What is your preferred musical genre?">What is your preferred musical genre?</option><option value="Who was your childhood hero? ">Who was your childhood hero? </option><option value="In what city or town was your first job?">In what city or town was your first job?</option><option value="Where were you when you had your first kiss? ">Where were you when you had your first kiss? </option><option value="In which city did you met your spouse/significant other?">In which city did you met your spouse/significant other?</option><option value="What was your childhood nickname?">What was your childhood nickname?</option></select>
+            <input id="answer3" name="answer3" class="input-large" type="text" value="">
+            <span class="help-inline"></span>
+        </div>
+    </div>
+
+    <input id="id" name="id" type="hidden" value="1">
+
+    <input id="adminPassword" name="adminPassword" type="hidden" value="TRANSIENT">
+
+
+    <div class="form-actions">
+
+        <div class="pull-right">
+            <button type="submit" class="btn btn-success">Save</button>
+        </div>
+
+    </div>
+
+</form>
+</body>
+</html>
