@@ -27,5 +27,20 @@ Train Demo is a web application that simulates planning a trip and purchasing ti
 9. Visit `localhost:8080` in a browser.
 
 
+## Implementation Status
+
+For travelers: 
+
+Use Cases                       Status
+---------------------------------------
+Search Ticket                     Done
+Display Available Itinerary       Done
+Add to Cart(Excluding Discount)   Done
+Checkout                          Done
+Sign In (Excluding Register)      Done
+
+We are still working on Admin Use cases. Regarding the design documents, for few use cases the design has changed. we are planning to submit the updated version of design document along with the final project submission
+
+
 
 
