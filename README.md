@@ -29,9 +29,7 @@ Train Demo is a web application that simulates planning a trip and purchasing ti
 
 ## Implementation Status
 
-For travelers: 
-
-Use Cases                       Status
+Use Cases for Traveller
 ---------------------------------------
 Search Ticket                     Done
 Display Available Itinerary       Done
