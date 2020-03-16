@@ -14,6 +14,7 @@ import javax.validation.ReportAsSingleViolation;
 
 import org.springframework.stereotype.Service;
 
+import edu.drexel.TrainDemo.Utils.Utils;
 import edu.drexel.TrainDemo.entities.itinerary.Calendar;
 import edu.drexel.TrainDemo.entities.itinerary.Stop;
 import edu.drexel.TrainDemo.entities.itinerary.StopTime;
@@ -140,7 +141,7 @@ public class SearchServiceImpl implements SearchService {
 		segment.setDepartureStation(fromTime);
 		segment.setArrivalStation(toTime.get());
 		try {
-			segment.setDuration(calculateDuration(fromTime.getDeparture_time(),toTime.get().getArrival_time()));
+			segment.setDuration(Utils.calculateDuration(fromTime.getDeparture_time(),toTime.get().getArrival_time()));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,16 +165,7 @@ public class SearchServiceImpl implements SearchService {
 		return segment;
 	}
 
-	private String calculateDuration(String arrivalTime, String departureTime) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-		Date date1 = format.parse(departureTime);
-		Date date2 = format.parse(arrivalTime);
-		
-		Date date = new Date(date1.getTime() - date2.getTime());
-		SimpleDateFormat formatter= new SimpleDateFormat("HH:mm:ss");
-		formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-		return formatter.format(date );
-	}
+	
 
 	@Override
 	public List<Stop> getStops(String searchName) {

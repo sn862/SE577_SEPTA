@@ -1,5 +1,6 @@
 package edu.drexel.TrainDemo.controllers.search;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.drexel.TrainDemo.model.Itinerary.OneWayTrip;
 import edu.drexel.TrainDemo.model.Itinerary.RoundTrip;
+import edu.drexel.TrainDemo.model.Itinerary.Segment;
 import edu.drexel.TrainDemo.model.checkout.Checkout;
 import edu.drexel.TrainDemo.model.customer.Address;
 import edu.drexel.TrainDemo.model.customer.Customer;
@@ -25,6 +27,7 @@ import edu.drexel.TrainDemo.model.customer.Passenger;
 import edu.drexel.TrainDemo.model.payment.Payment;
 import edu.drexel.TrainDemo.model.search.DisplayAvailableItineraries;
 import edu.drexel.TrainDemo.model.search.SearchModel;
+import edu.drexel.TrainDemo.service.itinerary.ItineraryService;
 import edu.drexel.TrainDemo.service.search.SearchService;
 
 @Controller
@@ -32,6 +35,9 @@ public class SearchController {
 
 	@Autowired
 	private SearchService searchService;
+	
+	@Autowired
+	private ItineraryService itineraryService;
 
 	@RequestMapping("/")
 	public String home(Model model) {
@@ -89,7 +95,7 @@ public class SearchController {
 	}
 
 	@PostMapping("/search/returndisplay.html")
-	public String displayItineraries(@ModelAttribute("display") DisplayAvailableItineraries form, Model model) {
+	public String displayItineraries(@ModelAttribute("display") DisplayAvailableItineraries form, Model model) throws ParseException {
 		System.out.println("return trip entry " + form);
 		if (isOneWayTrip(form)) {
 			return invokeCheckoutpage(form, model);
@@ -124,7 +130,7 @@ public class SearchController {
 		return "returndisplay";
 	}
 
-	private String invokeCheckoutpage(DisplayAvailableItineraries form, Model model) {
+	private String invokeCheckoutpage(DisplayAvailableItineraries form, Model model) throws ParseException {
 		Checkout checkout = new Checkout();
 		System.out.println(form.getSearchModel());
 		checkout.setId(1);
@@ -142,6 +148,13 @@ public class SearchController {
 		System.out.println(checkout);
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("customer", customer);
+		List<Segment> itineraries= new ArrayList<Segment>();
+		itineraries.add(itineraryService.getItinerary(form.getSearchModel().getFromStn(), form.getSearchModel().getToStn(), form.getSearchModel().getTripId()));
+		if(form.getSearchModel().getTripType().equals("RoundTrip")) {
+			itineraries.add(itineraryService.getItinerary(form.getSearchModel().getToStn(), form.getSearchModel().getFromStn(), form.getSearchModel().getReturnTripId()));
+		}
+		System.out.println(itineraries);
+		model.addAttribute("itineraries", itineraries);
 		return "checkout";
 	}
 
