@@ -4,15 +4,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import edu.drexel.TrainDemo.model.checkout.OrderSummary;
+import edu.drexel.TrainDemo.entities.order.Orders;
 import edu.drexel.TrainDemo.model.order.Order;
+import edu.drexel.TrainDemo.model.order.OrderSummary;;
 
 @Service
 public interface OrderService {
 
 	List<Order> commitOrder();
 
-	Order submitOrder(Order order);
+	Orders submitOrder(Orders order);
 
 	OrderSummary getOrderSummary(Order order);
 

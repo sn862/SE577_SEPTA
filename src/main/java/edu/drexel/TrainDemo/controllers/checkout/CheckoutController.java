@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.drexel.TrainDemo.model.checkout.Checkout;
-import edu.drexel.TrainDemo.model.checkout.OrderSummary;
+import edu.drexel.TrainDemo.model.order.OrderSummary;
 import edu.drexel.TrainDemo.service.checkout.CheckoutService;
 
 @Controller
@@ -19,12 +19,11 @@ public class CheckoutController {
 	@Autowired
 	private CheckoutService checkoutService;
 
-
 	@PostMapping("/submitOrder")
 	@ResponseBody
-	public String submitOrder(@ModelAttribute("checkout") Checkout checkout, Model model) {
+	public OrderSummary submitOrder(@ModelAttribute("checkout") Checkout checkout, Model model) {
 		OrderSummary summary = checkoutService.commitOrder(checkout);
-		return "hello";
+		return summary;
 
 	}
 

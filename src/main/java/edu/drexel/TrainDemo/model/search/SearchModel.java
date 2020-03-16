@@ -8,20 +8,18 @@ public class SearchModel {
 	private String arrivalDate;
 	private int numberOfTickets;
 	private String tripType;
-	private String tripId;
+	private Long tripId;
 	private Double price;
 	private String returnTripId;
-	private String returnPrice;
+	private Double returnPrice;
 
-	public String getTripId() {
+	public Long getTripId() {
 		return tripId;
 	}
 
-	public void setTripId(String tripId) {
+	public void setTripId(Long tripId) {
 		this.tripId = tripId;
 	}
-
-	
 
 	public Double getPrice() {
 		return price;
@@ -87,11 +85,11 @@ public class SearchModel {
 		this.returnTripId = returnTripId;
 	}
 
-	public String getReturnPrice() {
+	public Double getReturnPrice() {
 		return returnPrice;
 	}
 
-	public void setReturnPrice(String returnPrice) {
+	public void setReturnPrice(Double returnPrice) {
 		this.returnPrice = returnPrice;
 	}
 
