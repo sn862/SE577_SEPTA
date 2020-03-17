@@ -28,7 +28,7 @@ Train Demo is a web application that simulates planning a trip and purchasing ti
 
 10. Functionality only works if the user is logged in. To Login into the system using either using GitHub or Google accounts.
 
-11. To check Admin Mobule, once you login hit the url 'localhost:8080/admin'
+11. To check Admin Mobule, once you login hit the url `localhost:8080/admin`
 
 
 ## Implementation Status
