@@ -49,14 +49,15 @@
 
 	<main role="main">
 		<div class="jumbotron">
+		<marquee>*** Protect Yourself, Stay Safe ***</marquee>
 			<div class="container">
-				<h1 class="display-3">Hello, world!</h1>
-				<p>This is a template for a simple marketing or informational
-					website. It includes a large callout called a jumbotron and three
-					supporting pieces of content. Use it as a starting point to create
-					something more unique.</p>
-				<a role="button" class="btn btn-primary btn-lg" href="#">Learn
-					More</a>
+				<h2>Hello Customer!</h2>
+				<br>
+				<p>Currently world is undergoing COVID-19 crisis.
+				COVID-19 belongs to the large family of viruses known as Coronaviruses (CoV) that cause illness 
+				ranging from the common cold to more severe diseases such as 
+				Middle East Respiratory Syndrome (MERS-CoV) and Severe Acute Respiratory Syndrome 
+				(SARS-CoV)... <a role="button" href="https://www.who.int/health-topics/coronavirus">Learn More</a> </p>
 			</div>
 			<br> <br>
 			<div class="container">
@@ -66,33 +67,35 @@
 					 <input checked type="radio" id="oneway" name="tripType" th:field="*{tripType}" th:value="OneWay"
 						 onclick="disableReturnDate()"> <label
 						for="oneway">OneWay</label>
-
+					&nbsp;&nbsp;
 					<input type="radio" id="roundTrip" th:field="*{tripType}" th:value="RoundTrip"
 						name="tripType" 
 						onclick="enableReturnDate()"> <label for="roundTrip">RoundTrip</label>
 						
-						
+					&nbsp;&nbsp;	
 					<input type="text" id="fromStn"  name="station" th:field="*{fromStn}"
 						size="25" list="huge_from_list"
 						oninput="onFromSationKeyPress(this.value)" placeholder="From City" required>
 					<datalist id="huge_from_list"></datalist>
 					
+					&nbsp;&nbsp;
 					<input type="text" id="toStn" name="station" size="25"  th:field="*{toStn}"
 						list="huge_to_list" oninput="onToSationKeyPress(this.value)"
 						placeholder="To City" required>
 					<datalist id="huge_to_list"></datalist>
 					
-					
+					&nbsp;&nbsp;
 					<input type="date" id="departureDate" 
 						style="width: 150px" min="setMinDate()" th:field="*{departureDate}" name="date"> 
-						
+					
+					&nbsp;&nbsp;	
 					<input	type="date"  id="arrivalDate" th:field="*{arrivalDate}"
 						style="width: 150px" min="setMinDateForReturn()" name="date">
 						
-						
+					&nbsp;	
 					<input type="number" id="tentacles" name="tentacles" th:field="*{numberOfTickets}"
 						 value="1" min="1" max="10">
-						
+					&nbsp;&nbsp;	
 					<button type="submit" value="Submit">Search</button>
 
 				</form>
@@ -103,35 +106,32 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
-					<h2>Heading1</h2>
-					<p>Donec id elit non mi porta gravida at eget metus. Fusce
-						dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-						ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-						magna mollis euismod. Donec sed odio dui.</p>
+					<h2>Symptoms</h2>
+					<p>fever, cough, shortness of breath and breathing difficulties. 
+					In more severe cases, infection can cause pneumonia, severe acute 
+					respiratory syndrome, kidney failure and even death. </p>
 					<p>
-						<a class="btn btn-secondary" href="#" role="button">View
+						<a class="btn btn-secondary" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/events-as-they-happen" role="button">View
 							details »</a>
 					</p>
 				</div>
 				<div class="col-md-4">
-					<h2>Heading2</h2>
-					<p>Donec id elit non mi porta gravida at eget metus. Fusce
-						dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-						ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-						magna mollis euismod. Donec sed odio dui.</p>
+					<h2>Preventive Measures</h2>
+					<p>To prevent infection spread include regular hand washing, 
+					covering mouth and nose when coughing and sneezing, thoroughly 
+					cooking meat and eggs. Avoid close contact with anyone showing 
+					symptoms of respiratory illness such as coughing and sneezing.</p>
 					<p>
-						<a class="btn btn-secondary" href="#" role="button">View
+						<a class="btn btn-secondary" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public" role="button">View
 							details »</a>
 					</p>
 				</div>
 				<div class="col-md-4">
-					<h2>Heading3</h2>
-					<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis
-						in, egestas eget quam. Vestibulum id ligula porta felis euismod
-						semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-						condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+					<h2>More Information</h2>
+					<p>For more information regarding symptoms, preventive measures and current situation 
+					across all countries please check the World Health Organization site. Click below link to navigate</p>
 					<p>
-						<a class="btn btn-secondary" href="#" role="button">View
+						<a class="btn btn-secondary" href="https://experience.arcgis.com/experience/685d0ace521648f8a5beeeee1b9125cd" role="button">View
 							details »</a>
 					</p>
 				</div>
