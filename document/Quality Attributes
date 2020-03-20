@@ -1,0 +1,37 @@
+Train Ticket Demo's Quality Attributes
+
+-Modifiability:
+The developer wants to add a new payment configuration at design time. To add a new payment method, a new page that shows all the payment’s configuration needed to be created. This new added configuration might take more than 2 hours of effort.
+
+Stimulus source: Developer
+Artifact: Payment Configuration
+Stimulus: add
+Environment: design time
+Response: new added configuration
+Response measure: 2 hours of effort
+
+Source code: src.main.java.edu.drexel.TrainDemo.controllers.payments
+------------------------------------------------------------------------------------------------------------------------------
+-Security:
+In order for an unregisterd user to be able to search ticket from the system’s database, he must sign into the system using either a Github account or a Google account when the system is connected to network. Otherwise, all data are blocked from unauthorized access. All of unauthorized access will be blocked.
+
+Stimulus source: Unregistered User
+Artifact: System Database
+Stimulus: Search Ticket
+Environment: Connected to network
+Response: all data are blocked
+Response measure: All of unauthorized access will be blocked
+
+Source code: src.main.java.edu.drexel.TrainDemo.configurations
+------------------------------------------------------------------------------------------------------------------------------
+-Interoperability:
+The system wants to search for the itineraries’ time based on the start locations and destinations during run time. From the chosen stations, the system will find the information from the database and then return the search results. The search results is 100% exchanged correctly.
+
+Stimulus source: The System
+Artifact: Database
+Stimulus: Search for the itineraries’ time
+Environment: during run time
+Response: Return the search results
+Response measure: 100% exchanged correctly
+
+Source code: src.main.java.edu.drexel.TrainDemo.controllers.search
